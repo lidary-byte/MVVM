@@ -1,0 +1,3 @@
+rootProject.name='BaseCommonTest'
+include ':app'
+include ':baseCommon'
