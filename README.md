@@ -6,7 +6,7 @@
 
 使用方法:
 
-1.根项目的build.gradle里添加
+1. 根项目的build.gradle里添加
 ```
 allprojects {
 		repositories {
@@ -16,7 +16,7 @@ allprojects {
 	}
 ```
 
-2.model下的build.gradle中添加:
+2.  model下的build.gradle中添加:
 ```
 dependencies {
    implementation 'com.github.ohdu:BaseCommonMVVM:Tag'
