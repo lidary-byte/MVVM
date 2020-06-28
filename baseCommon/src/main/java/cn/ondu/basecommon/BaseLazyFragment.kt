@@ -22,7 +22,7 @@ abstract class BaseLazyFragment : BaseFragment() {
 
 
     // 实现具体的数据请求逻辑
-    protected fun loadData() {}
+    protected open fun loadData() {}
 
     /**
      * 使用ViewPager嵌套fragment时，切换ViewPager回调该方法

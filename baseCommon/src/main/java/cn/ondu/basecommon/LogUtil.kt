@@ -2,6 +2,10 @@ package cn.ondu.basecommon
 
 import android.util.Log
 
+/**
+ * Log 封装
+ * @author ohdu
+ */
 object LogUtil {
 
     fun e(tag: String, msg: String) {

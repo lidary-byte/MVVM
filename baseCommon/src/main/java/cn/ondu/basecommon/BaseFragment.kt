@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 abstract class BaseFragment : Fragment() {
-    protected var mActivity: Activity? = null
+    protected open var mActivity: Activity? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mActivity = context as BaseActivity
@@ -31,9 +31,9 @@ abstract class BaseFragment : Fragment() {
         viewModelListener()
     }
 
-    protected fun initView() {}
-    protected fun initData(savedInstanceState: Bundle?) {}
+    protected open fun initView() {}
+    protected open fun initData(savedInstanceState: Bundle?) {}
     protected abstract fun resourceId(): Int
-    protected fun viewClickListener() {}
-    protected fun viewModelListener() {}
+    protected open fun viewClickListener() {}
+    protected open fun viewModelListener() {}
 }

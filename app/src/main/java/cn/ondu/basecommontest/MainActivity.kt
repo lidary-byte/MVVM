@@ -1,12 +1,18 @@
 package cn.ondu.basecommontest
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import cn.ondu.basecommon.BaseActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+    override fun layoutResID(): Int = R.layout.activity_main
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+    override fun initView() {
+        setSupportActionBar(toolbar_main)
     }
+
+    override fun viewClickListener() {
+
+    }
+
 }

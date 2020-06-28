@@ -16,9 +16,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
     }
 
-    protected fun viewClickListener() {}
-    protected fun viewModelListener() {}
-    protected fun initView() {}
-    protected fun initData(savedInstanceState: Bundle?) {}
+    protected open fun viewClickListener() {}
+    protected open fun viewModelListener() {}
+    protected open fun initView() {}
+    protected open fun initData(savedInstanceState: Bundle?) {}
     protected abstract fun layoutResID(): Int
 }
