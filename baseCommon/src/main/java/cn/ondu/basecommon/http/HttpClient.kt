@@ -21,7 +21,6 @@ object HttpClient {
             .writeTimeout(5, TimeUnit.SECONDS).apply {
                 if (retrofitInterface!!.isPrintLog()) {
                     addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                    addInterceptor(LogInterceptor())
                 }
             }.build()
 
@@ -29,9 +28,6 @@ object HttpClient {
     }
 
     fun retrofitObj(): Retrofit {
-        if (null == retrofitInterface) {
-            Exception("请初始化RetrofitInterface")
-        }
         return Retrofit.Builder()
             .baseUrl(retrofitInterface!!.baseUrl())
             .addConverterFactory(GsonConverterFactory.create())
