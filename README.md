@@ -2,7 +2,10 @@
 
 ###  便于快速构建MVVM项目
 
-目前之封装了Activity,Fragment,Retrofit,Log
+
+## 新增ViewBinding
+
+目前只封装了Activity,Fragment,Retrofit,Log
 
 使用方法:
 

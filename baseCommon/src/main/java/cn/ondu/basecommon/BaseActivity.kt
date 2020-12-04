@@ -2,23 +2,30 @@ package cn.ondu.basecommon
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewbinding.ViewBinding
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layoutResID())
+        setContentView(mViewBinding().root)
         initData(savedInstanceState)
         initView()
-
-        viewClickListener()
+        registerViewClick()
         viewModelListener()
-
     }
 
-    protected open fun viewClickListener() {}
+    /**
+     * 注册点击事件
+     */
+    protected open fun registerViewClick() {}
+
+    /**
+     * ViewModel 事件监听
+     */
     protected open fun viewModelListener() {}
     protected open fun initView() {}
     protected open fun initData(savedInstanceState: Bundle?) {}
-    protected abstract fun layoutResID(): Int
+    protected abstract fun mViewBinding(): T
 }
