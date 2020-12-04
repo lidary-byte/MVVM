@@ -4,12 +4,13 @@ import android.os.Bundle
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.viewbinding.ViewBinding
 
 
 /**
  * 懒加载
  */
-abstract class BaseLazyFragment : BaseFragment() {
+abstract class BaseLazyFragment<T:ViewBinding> : BaseFragment<T>() {
     // 界面是否已创建完成
     private var isViewCreated = false
 
@@ -62,7 +63,7 @@ abstract class BaseLazyFragment : BaseFragment() {
      */
     private fun isParentVisible(): Boolean {
         val fragment: Fragment? = parentFragment
-        return fragment == null || fragment is BaseLazyFragment && fragment.isVisibleToUser
+        return fragment == null || fragment is BaseLazyFragment<*> && fragment.isVisibleToUser
     }
 
     /**
@@ -75,7 +76,7 @@ abstract class BaseLazyFragment : BaseFragment() {
             return
         }
         for (child in fragments) {
-            if (child is BaseLazyFragment && child.isVisibleToUser) {
+            if (child is BaseLazyFragment<*> && child.isVisibleToUser) {
                 child.tryLoadData()
             }
         }
@@ -111,7 +112,7 @@ abstract class BaseLazyFragment : BaseFragment() {
             return
         }
         for (child in fragments) {
-            if (child is BaseLazyFragment && !child.isHidden1) {
+            if (child is BaseLazyFragment<*> && !child.isHidden1) {
                 child.tryLoadData1()
             }
         }
@@ -126,7 +127,7 @@ abstract class BaseLazyFragment : BaseFragment() {
         val fragment: Fragment? = parentFragment
         if (fragment == null) {
             return false
-        } else if (fragment is BaseLazyFragment && !fragment.isHidden1) {
+        } else if (fragment is BaseLazyFragment<*> && !fragment.isHidden1) {
             return false
         }
         return true

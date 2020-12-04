@@ -7,12 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
+import java.lang.reflect.ParameterizedType
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<T : ViewBinding> : Fragment() {
+
+    protected lateinit var mViewBinding: T
+
     protected open var mActivity: Activity? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mActivity = context as BaseActivity
+        mActivity = context as BaseActivity<T>
     }
 
     override fun onCreateView(
@@ -20,7 +25,16 @@ abstract class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(resourceId(), container, false)
+        val type = javaClass.genericSuperclass as ParameterizedType
+        val aClass = type.actualTypeArguments[0] as Class<*>
+        val method = aClass.getDeclaredMethod(
+            "inflate",
+            LayoutInflater::class.java,
+            ViewGroup::class.java,
+            Boolean::class.java
+        )
+        mViewBinding = method.invoke(null, layoutInflater, container, false) as T
+        return mViewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
