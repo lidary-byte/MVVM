@@ -41,13 +41,12 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initData(savedInstanceState)
         initView()
-        viewClickListener()
+        registerViewClick()
         viewModelListener()
     }
 
     protected open fun initView() {}
     protected open fun initData(savedInstanceState: Bundle?) {}
-    protected abstract fun resourceId(): Int
-    protected open fun viewClickListener() {}
+    protected open fun registerViewClick() {}
     protected open fun viewModelListener() {}
 }
