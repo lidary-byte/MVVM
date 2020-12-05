@@ -31,4 +31,7 @@ dependencies {
    implementation 'com.github.ohdu:BaseCommonMVVM:Tag'
 	}
 ```
-3. 在你的Application中调用``` BaseCommon.init(mContext: Context)或者BaseCommon.init(mContext: Context, debug: Boolean)```
+3. 在你的Application中调用
+```
+ BaseCommon.init(debug: Boolean, logTag: String = BaseCommon::class.java.simpleName)
+```
