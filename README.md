@@ -1,4 +1,4 @@
-# BaseCommonMVVM
+# BaseCommonMVVM [![](https://jitpack.io/v/ohdu/BaseCommonMVVM.svg)](https://jitpack.io/#ohdu/BaseCommonMVVM)
 
 ###  便于快速构建MVVM项目
 
