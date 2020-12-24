@@ -8,17 +8,11 @@ import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
-    protected val mViewBinding: T by lazy {
-        //使用反射得到viewbinding的class
-        val type = javaClass.genericSuperclass as ParameterizedType
-        val aClass = type.actualTypeArguments[0] as Class<*>
-        val method = aClass.getDeclaredMethod("inflate", LayoutInflater::class.java)
-        method.invoke(null, layoutInflater) as T
-    }
+    protected val mViewBinding: T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        mViewBinding = viewBinding()
         setContentView(mViewBinding.root)
         initData(savedInstanceState)
         initView()
@@ -37,4 +31,5 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     protected open fun viewModelListener() {}
     protected open fun initView() {}
     protected open fun initData(savedInstanceState: Bundle?) {}
+    protected abstract fun viewBinding():T
 }

@@ -25,15 +25,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val type = javaClass.genericSuperclass as ParameterizedType
-        val aClass = type.actualTypeArguments[0] as Class<*>
-        val method = aClass.getDeclaredMethod(
-            "inflate",
-            LayoutInflater::class.java,
-            ViewGroup::class.java,
-            Boolean::class.java
-        )
-        mViewBinding = method.invoke(null, layoutInflater, container, false) as T
+        mViewBinding = viewBinding()
         return mViewBinding.root
     }
 
@@ -49,4 +41,5 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
     protected open fun initData(savedInstanceState: Bundle?) {}
     protected open fun registerViewClick() {}
     protected open fun viewModelListener() {}
+    protected abstract fun viewBinding(): T
 }
