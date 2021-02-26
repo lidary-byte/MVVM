@@ -4,9 +4,9 @@ interface RetrofitInterface {
 
     fun baseUrl(): String {
         if (isDebug()) {
-            return debugHost() + apiRelativePath()
+            return debugHost()
         }
-        return releaseHost() + apiRelativePath()
+        return releaseHost()
     }
 
     /**
@@ -17,13 +17,16 @@ interface RetrofitInterface {
     /**
      * 测试版Url
      */
-    fun debugHost(): String?
+    fun debugHost(): String
 
-
-    fun apiRelativePath(): String?
-
+    /**
+     * 是否打印日志
+     */
     fun isPrintLog(): Boolean
 
+    /**
+     * 是否是debug
+     */
     fun isDebug(): Boolean
 
 }

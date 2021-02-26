@@ -1,13 +1,15 @@
 package cn.ondu.basecommon
 
+import android.app.Application
+
 
 object BaseCommon {
     internal var debug: Boolean = false
-    internal var tag = BaseCommon::class.java.simpleName
+    internal lateinit var application: Application
 
-    fun init(debug: Boolean, logTag: String = BaseCommon::class.java.simpleName) {
+    fun init(debug: Boolean, application: Application) {
         this.debug = debug
-        this.tag = logTag
+        this.application = application
     }
 
 

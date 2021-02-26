@@ -1,6 +1,7 @@
-package cn.ondu.basecommon
+package cn.ondu.basecommon.util
 
 import android.util.Log
+import cn.ondu.basecommon.BaseCommon
 
 /**
  * Log 封装
@@ -8,34 +9,34 @@ import android.util.Log
  */
 object LogUtil {
 
-    fun e(msg: String, tag: String = BaseCommon.tag) {
+    fun e(msg: String, tag: String = "") {
         if (BaseCommon.debug) {
             Log.e(tag, msg)
         }
     }
 
 
-    fun i(msg: String, tag: String = BaseCommon.tag) {
+    fun i(msg: String, tag: String = "") {
         if (BaseCommon.debug) {
             Log.i(tag, msg)
         }
     }
 
 
-    fun v(msg: String, tag: String = BaseCommon.tag) {
+    fun v(msg: String, tag: String = "") {
         if (BaseCommon.debug) {
             Log.v(tag, msg)
         }
     }
 
 
-    fun d(msg: String, tag: String = BaseCommon.tag) {
+    fun d(msg: String, tag: String = "") {
         if (BaseCommon.debug) {
             Log.d(tag, msg)
         }
     }
 
-    fun w(msg: String, tag: String = BaseCommon.tag) {
+    fun w(msg: String, tag: String = "") {
         if (BaseCommon.debug) {
             Log.w(tag, msg)
         }

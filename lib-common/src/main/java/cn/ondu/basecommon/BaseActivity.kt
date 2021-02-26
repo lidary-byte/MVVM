@@ -1,35 +1,39 @@
 package cn.ondu.basecommon
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
-    protected val mViewBinding: T
+
+    protected val mLogTag = this::class.java.simpleName
+
+    protected lateinit var mViewBinding: T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewBinding = viewBinding()
         setContentView(mViewBinding.root)
         initData(savedInstanceState)
-        initView()
-        registerViewClick()
-        viewModelListener()
+        initView(savedInstanceState)
+        viewListener()
+        liveDataListener()
     }
 
     /**
      * 注册点击事件
      */
-    protected open fun registerViewClick() {}
+    protected open fun viewListener() {}
 
     /**
      * ViewModel 事件监听
      */
-    protected open fun viewModelListener() {}
-    protected open fun initView() {}
+    protected open fun liveDataListener() {}
+    protected open fun initView(savedInstanceState: Bundle?) {}
     protected open fun initData(savedInstanceState: Bundle?) {}
-    protected abstract fun viewBinding():T
+    protected abstract fun viewBinding(): T
+
+
+
 }

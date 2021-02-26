@@ -1,19 +1,22 @@
 package cn.ondu.basecommon.http
 
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 object HttpClient {
-
     /**
      * 返回okHttp对象
      */
-    private val retrofitInterface: RetrofitInterface? = null
+    private var retrofitInterface: RetrofitInterface? = null
+        get() {
+            if (field==null){
+                throw NullPointerException("请实现RetrofitInterface接口")
+            }
+            return field
+        }
     private fun okHttpObj(): OkHttpClient {
         return OkHttpClient().newBuilder()
             .connectTimeout(5, TimeUnit.SECONDS)    //连接超时 5s
@@ -30,10 +33,19 @@ object HttpClient {
     fun retrofitObj(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(retrofitInterface!!.baseUrl())
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpObj())
-            .build().apply {
-                create(ApiService::class.java)
-            }
+            .build()
     }
+
+    /**
+     *
+     * @param service 接口
+     */
+    fun <T> createApi(service: Class<T>): T = retrofitObj().create(service)
+
+    /**
+     * 给一个默认的
+     */
+    fun createApi() = createApi(ApiService::class.java)
 }
