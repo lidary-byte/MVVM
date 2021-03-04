@@ -1,6 +1,7 @@
 package cn.ondu.basecommon.util
 
 import android.content.res.Resources
+import android.util.TypedValue
 
 /**
  * @author: lcc
@@ -10,12 +11,23 @@ import android.content.res.Resources
  * @description: 屏幕相关
  */
 
-fun Float.px(): Int {
-    val scale = Resources.getSystem().displayMetrics.density
-    return (this * scale + 0.5f).toInt()
-}
+/**
+ * dp转px
+ */
+val Float.px
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this,
+        Resources.getSystem().displayMetrics
+    )
 
-fun Float.dp():Int{
-    val scale = Resources.getSystem().displayMetrics.density
-    return (this / scale + 0.5f).toInt()
-}
+/**
+ * px转dp
+ */
+val Float.dp
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_PX,
+        this,
+        Resources.getSystem().displayMetrics
+    )
+
