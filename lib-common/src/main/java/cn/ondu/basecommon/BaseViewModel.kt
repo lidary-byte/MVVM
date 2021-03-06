@@ -7,7 +7,7 @@ import cn.ondu.basecommon.http.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
-class BaseViewModel : ViewModel(){
+open class BaseViewModel : ViewModel(){
     /**
      * 一些比较复杂处理,比如多个接口的并发请求 则通过外部实现block()方法来完成
      */

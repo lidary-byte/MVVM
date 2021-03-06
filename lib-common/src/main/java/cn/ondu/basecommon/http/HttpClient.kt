@@ -1,5 +1,6 @@
 package cn.ondu.basecommon.http
 
+import cn.ondu.basecommon.util.LogUtil
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,7 +11,7 @@ object HttpClient {
     /**
      * 返回okHttp对象
      */
-    private var retrofitInterface: RetrofitInterface? = null
+    var retrofitInterface: RetrofitInterface? = null
         get() {
             if (field==null){
                 throw NullPointerException("请实现RetrofitInterface接口")
@@ -23,7 +24,12 @@ object HttpClient {
             .readTimeout(5, TimeUnit.SECONDS)  //读取超时
             .writeTimeout(5, TimeUnit.SECONDS).apply {
                 if (retrofitInterface!!.isPrintLog()) {
-                    addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                    addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger{
+                        override fun log(message: String) {
+                             LogUtil.v(message,"okHttp")
+                        }
+
+                    }).setLevel(HttpLoggingInterceptor.Level.BODY))
                 }
             }.build()
 
@@ -44,8 +50,4 @@ object HttpClient {
      */
     fun <T> createApi(service: Class<T>): T = retrofitObj().create(service)
 
-    /**
-     * 给一个默认的
-     */
-    fun createApi() = createApi(ApiService::class.java)
 }

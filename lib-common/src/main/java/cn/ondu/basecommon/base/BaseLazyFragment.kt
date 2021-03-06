@@ -1,4 +1,4 @@
-package cn.ondu.basecommon
+package cn.ondu.basecommon.base
 
 import android.os.Bundle
 import androidx.annotation.Nullable

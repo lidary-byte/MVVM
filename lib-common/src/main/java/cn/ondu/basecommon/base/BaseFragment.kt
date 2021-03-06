@@ -1,4 +1,4 @@
-package cn.ondu.basecommon
+package cn.ondu.basecommon.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,14 +10,15 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
     private var _viewBinding: T? = null
-    protected val mViewBinding = _viewBinding!!
+    protected val mViewBinding by lazy { _viewBinding!! }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _viewBinding = viewBinding()
+        _viewBinding = viewBinding(  inflater,
+            container)
         return mViewBinding.root
     }
 
@@ -33,7 +34,8 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
     protected open fun initData(savedInstanceState: Bundle?) {}
     protected open fun viewListener() {}
     protected open fun liveDataListener() {}
-    protected abstract fun viewBinding(): T
+    protected abstract fun viewBinding(  inflater: LayoutInflater,
+                                         container: ViewGroup?): T
 
     override fun onDestroyView() {
         super.onDestroyView()
