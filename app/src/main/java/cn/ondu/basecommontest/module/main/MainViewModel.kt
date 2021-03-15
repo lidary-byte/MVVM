@@ -14,7 +14,7 @@ import cn.ondu.basecommontest.bean.MusicListBean
  */
 class MainViewModel : BaseViewModel(){
     private val mRepo by lazy { MainRepository() }
-    val newSongState by lazy { MutableLiveData<HttpStatus>() }
+    val newSongState by lazy { MutableLiveData<HttpStatus<MusicListBean>>() }
     fun newSongList() = httpComplex<MusicListBean>(newSongState){
         val data = mRepo.newSongList()
         emit(data)

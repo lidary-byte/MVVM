@@ -3,14 +3,8 @@ package cn.ondu.basecommontest.module.main
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import cn.ondu.basecommon.base.BaseActivity
 import cn.ondu.basecommon.base.BaseFragmentPagerAdapter
-import cn.ondu.basecommon.http.ErrorStatus
-import cn.ondu.basecommon.http.FinishStatus
-import cn.ondu.basecommon.http.LoadStatus
-import cn.ondu.basecommon.http.SuccessStatus
-import cn.ondu.basecommon.util.LogUtil
 import cn.ondu.basecommontest.R
 import cn.ondu.basecommontest.databinding.ActivityMainBinding
 import cn.ondu.basecommontest.module.found.FoundFragment

@@ -7,9 +7,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.ondu.basecommon.base.BaseLazyFragment
+import cn.ondu.basecommon.http.httpStatusParsing
+import cn.ondu.basecommon.util.LogUtil
 import cn.ondu.basecommontest.bean.InfoX
 import cn.ondu.basecommontest.databinding.FragmentFoundBinding
-import cn.ondu.basecommontest.databinding.FragmentPersonBinding
 
 /**
  * @author: lcc
@@ -32,20 +33,25 @@ class FoundFragment : BaseLazyFragment<FragmentFoundBinding>() {
     }
 
     override fun tryLoadData() {
-        mViewModel.musicList().observe(viewLifecycleOwner, Observer {
-            mAdapter.setList((it!!.list!!.list!!.info as MutableList<InfoX>?)!!)
+        mViewModel.musicList()
+
+    }
+
+    override fun liveDataListener() {
+        mViewModel.musicListStatus.observe(viewLifecycleOwner, Observer {
+            it.httpStatusParsing({ LogUtil.e("加载中") },
+                { message ->  LogUtil.e("加载失败$message") },
+                { LogUtil.e("加载完成") },
+                { LogUtil.e("加载成功") })
         })
     }
 
     override fun tryLoadData1() {
-        mViewModel.musicList().observe(viewLifecycleOwner, Observer {
-            mAdapter.setList((it!!.list!!.list!!.info as MutableList<InfoX>?)!!)
-        })
+
     }
+
     override fun loadData() {
-        mViewModel.musicList().observe(viewLifecycleOwner, Observer {
-            mAdapter.setList((it!!.list!!.list!!.info as MutableList<InfoX>?)!!)
-        })
+
     }
 
     override fun viewBinding(
