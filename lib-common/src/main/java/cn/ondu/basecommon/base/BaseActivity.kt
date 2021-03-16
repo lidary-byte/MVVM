@@ -1,8 +1,10 @@
 package cn.ondu.basecommon.base
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.gyf.immersionbar.ktx.immersionBar
 
 abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
@@ -15,10 +17,20 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mViewBinding = viewBinding()
         setContentView(mViewBinding.root)
+        initImmersionBar()
         initData(savedInstanceState)
         initView(savedInstanceState)
         viewListener()
         liveDataListener()
+    }
+
+    protected open fun initImmersionBar(){
+        immersionBar {
+            //自动状态栏
+            autoDarkModeEnable(true)
+            keyboardEnable(true)  //解决软键盘与底部输入框冲突问题
+            statusBarColor("#ffffff")
+        }
     }
 
     /**

@@ -3,7 +3,7 @@ package cn.ondu.basecommontest.module.found
 import androidx.lifecycle.MutableLiveData
 import cn.ondu.basecommon.BaseViewModel
 import cn.ondu.basecommon.http.HttpStatus
-import cn.ondu.basecommontest.bean.MusicListBean
+import cn.ondu.basecommontest.bean.LoginPhoneBean
 
 /**
  * @author: lcc
@@ -14,7 +14,7 @@ import cn.ondu.basecommontest.bean.MusicListBean
  */
 class FoundViewModel : BaseViewModel(){
     private val mRepo by lazy { FoundRepository() }
-    val musicListStatus by lazy { MutableLiveData<HttpStatus<MusicListBean>>() }
+    val musicListStatus by lazy { MutableLiveData<HttpStatus<LoginPhoneBean>>() }
     fun musicList() = httpComplex(musicListStatus){
         val data = mRepo.musicList()
         emit(data)

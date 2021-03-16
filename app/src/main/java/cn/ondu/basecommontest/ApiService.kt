@@ -1,6 +1,6 @@
 package cn.ondu.basecommontest
 
-import cn.ondu.basecommontest.bean.MusicListBean
+import cn.ondu.basecommontest.bean.LoginPhoneBean
 import retrofit2.http.GET
 
 /**
@@ -11,6 +11,6 @@ import retrofit2.http.GET
  * @description:
  */
 interface ApiService  {
-    @GET("plist/list/125032?json=true")
-    suspend fun musicList(): MusicListBean
+    @GET("login/cellphone")
+    suspend fun loginPhone(): LoginPhoneBean
 }

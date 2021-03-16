@@ -1,7 +1,7 @@
 package cn.ondu.basecommontest.module.found
 
 import cn.ondu.basecommontest.R
-import cn.ondu.basecommontest.bean.InfoX
+import cn.ondu.basecommontest.bean.LoginPhoneBean
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 
@@ -13,9 +13,9 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
  * @description:
  */
 
-class FoundAdapter : BaseQuickAdapter<InfoX,BaseViewHolder>(R.layout.item_home){
-    override fun convert(holder: BaseViewHolder, item: InfoX) {
-         holder.setText(R.id.tv_title,item.filename)
+class FoundAdapter : BaseQuickAdapter<LoginPhoneBean,BaseViewHolder>(R.layout.item_home){
+    override fun convert(holder: BaseViewHolder, item: LoginPhoneBean) {
+         holder.setText(R.id.tv_title,item.token)
     }
 
 }
