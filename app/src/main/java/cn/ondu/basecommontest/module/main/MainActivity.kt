@@ -30,15 +30,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         mViewModel.allType()
 
         mViewModel.allTypeState.observe(this, Observer {
-            it.httpStatusParsing({
-                LogUtil.e("=====","加载中")
-            },{
-                LogUtil.e("=====","加载失败$it")
-            },{
-                LogUtil.e("=====","加载完成")
-            }){
-                LogUtil.e("=====","加载成功${it?.size}")
-            }
+//            it.httpStatusParsing({
+//                LogUtil.e("=====","加载中")
+//            },{
+//                LogUtil.e("=====","加载失败$it")
+//            },{
+//                LogUtil.e("=====","加载完成")
+//            }){
+//                LogUtil.e("=====","加载成功${it?.size}")
+//            }
         })
 //        mViewModel.loginPhone().observe(this, Observer {
 //

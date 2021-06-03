@@ -1,5 +1,6 @@
 package cn.ondu.basecommon.http
 
+import com.blankj.utilcode.util.LogUtils
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -25,7 +26,7 @@ object HttpClient {
                 if (retrofitInterface!!.isPrintLog()) {
                     addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger{
                         override fun log(message: String) {
-                             LogUtil.v(message,"okHttp")
+                             LogUtils.v(message,"okHttp")
                         }
 
                     }).setLevel(HttpLoggingInterceptor.Level.BODY))

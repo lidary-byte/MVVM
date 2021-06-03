@@ -28,6 +28,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         immersionBar {
             //自动状态栏
             autoDarkModeEnable(true)
+            fitsSystemWindows(true)
             keyboardEnable(true)  //解决软键盘与底部输入框冲突问题
             statusBarColor("#ffffff")
         }

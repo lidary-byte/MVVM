@@ -27,4 +27,6 @@ val Number.dp
 val Number.sp
     get() = ConvertUtils.px2sp(this.toFloat())
 
+val Number.sp2px
+    get() = ConvertUtils.sp2px(this.toFloat())
 

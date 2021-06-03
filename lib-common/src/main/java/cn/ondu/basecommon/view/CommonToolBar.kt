@@ -1,7 +1,9 @@
 package cn.ondu.basecommon.view
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -9,9 +11,7 @@ import android.widget.TextView
 import cn.ondu.basecommon.R
 import cn.ondu.basecommon.base.BaseActivity
 import cn.ondu.basecommon.base.BaseFragment
-import cn.ondu.basecommon.util.dp
-import cn.ondu.basecommon.util.singTapClick
-import cn.ondu.basecommon.util.sp
+import cn.ondu.basecommon.util.*
 
 /**
  * @author: lcc
@@ -53,23 +53,24 @@ open class CommonToolBar : RelativeLayout {
         addView(textViewRight)
 
         val imageLayoutParams = imageView.layoutParams as LayoutParams
-        imageLayoutParams.width = 35.dp
+        imageLayoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
         imageLayoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+        imageView.setPadding(2.px,10.px,2.px,10.px)
         imageView.layoutParams = imageLayoutParams
         imageView.setImageResource(R.drawable.ic_back)
-
 
         val textLayoutParams = textView.layoutParams as LayoutParams
         textLayoutParams.addRule(CENTER_IN_PARENT)
         textView.layoutParams = textLayoutParams
-        textView.textSize = 18.sp.toFloat()
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18f)
         textView.text = title
+        textView.setTextColor(Color.WHITE)
 
         val textRightLayoutParams = textViewRight.layoutParams as LayoutParams
         textRightLayoutParams.addRule(ALIGN_PARENT_END)
         textRightLayoutParams.addRule(CENTER_VERTICAL)
         textViewRight.layoutParams = textRightLayoutParams
-        textView.textSize = 16.sp.toFloat()
+        textViewRight.setTextSize(TypedValue.COMPLEX_UNIT_SP,16f)
 
         imageView.singTapClick {
             if (context is BaseActivity<*>) {
