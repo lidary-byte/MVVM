@@ -2,14 +2,13 @@ package cn.ondu.basecommon.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import cn.ondu.basecommon.R
 import cn.ondu.basecommon.base.BaseActivity
 import cn.ondu.basecommon.base.BaseFragment
-import cn.ondu.basecommon.R
-import cn.ondu.basecommon.databinding.LayoutToolbarBinding
 import cn.ondu.basecommon.util.dp
 import cn.ondu.basecommon.util.singTapClick
 import cn.ondu.basecommon.util.sp
@@ -25,7 +24,7 @@ import cn.ondu.basecommon.util.sp
 
 open class CommonToolBar : RelativeLayout {
 
-    private var title: String? = null
+    private var title: String = ""
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attributeSet: AttributeSet?) : this(context, attributeSet, 0)
@@ -36,7 +35,7 @@ open class CommonToolBar : RelativeLayout {
     ) {
         val obtainStyledAttributes =
             context.obtainStyledAttributes(attributeSet, R.styleable.CommonToolBar)
-        title = obtainStyledAttributes.getString(R.styleable.CommonToolBar_title)
+        title = obtainStyledAttributes.getString(R.styleable.CommonToolBar_title)?:""
         obtainStyledAttributes.recycle()
         initView()
     }
@@ -44,11 +43,6 @@ open class CommonToolBar : RelativeLayout {
     /**
      * 直接将view暴露出去反而是最方便的
      */
-    val mToolBarViewBinding: LayoutToolbarBinding by lazy {
-        LayoutToolbarBinding.inflate(LayoutInflater.from(context), this, true)
-    }
-
-
     val imageView by lazy { ImageView(context) }
     val textView by lazy { TextView(context) }
     val textViewRight by lazy { TextView(context) }
@@ -59,11 +53,17 @@ open class CommonToolBar : RelativeLayout {
         addView(textViewRight)
 
         val imageLayoutParams = imageView.layoutParams as LayoutParams
+        imageLayoutParams.width = 35.dp
+        imageLayoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+        imageView.layoutParams = imageLayoutParams
+        imageView.setImageResource(R.drawable.ic_back)
+
 
         val textLayoutParams = textView.layoutParams as LayoutParams
         textLayoutParams.addRule(CENTER_IN_PARENT)
         textView.layoutParams = textLayoutParams
         textView.textSize = 18.sp.toFloat()
+        textView.text = title
 
         val textRightLayoutParams = textViewRight.layoutParams as LayoutParams
         textRightLayoutParams.addRule(ALIGN_PARENT_END)
@@ -71,8 +71,7 @@ open class CommonToolBar : RelativeLayout {
         textViewRight.layoutParams = textRightLayoutParams
         textView.textSize = 16.sp.toFloat()
 
-        title?.let { mToolBarViewBinding.toolBarCenter.text = title }
-        mToolBarViewBinding.toolBarLeft.singTapClick {
+        imageView.singTapClick {
             if (context is BaseActivity<*>) {
                 (context as BaseActivity<*>).finish()
             } else if (context is BaseFragment<*>) {
