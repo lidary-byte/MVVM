@@ -21,11 +21,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         val titles = resources.getStringArray(R.array.home_tabs)
         val fragments = listOf(PersonFragment(), FoundFragment())
-        mViewBinding.viewPager.run {
-            mViewBinding.viewPager.adapter =
-                BaseFragmentPagerAdapter(supportFragmentManager, fragments, titles)
-            mViewBinding.tabLayout.setupWithViewPager(this)
-        }
+//        mViewBinding.viewPager.run {
+//            mViewBinding.viewPager.adapter =
+//                BaseFragmentPagerAdapter(supportFragmentManager, fragments, titles)
+//            mViewBinding.tabLayout.setupWithViewPager(this)
+//        }
 
         mViewModel.allType()
 
