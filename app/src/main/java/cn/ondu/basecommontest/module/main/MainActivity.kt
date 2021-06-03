@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import cn.ondu.basecommon.base.BaseActivity
 import cn.ondu.basecommon.base.BaseFragmentPagerAdapter
 import cn.ondu.basecommon.http.httpStatusParsing
-import cn.ondu.basecommon.util.LogUtil
 import cn.ondu.basecommontest.R
 import cn.ondu.basecommontest.databinding.ActivityMainBinding
 import cn.ondu.basecommontest.module.found.FoundFragment

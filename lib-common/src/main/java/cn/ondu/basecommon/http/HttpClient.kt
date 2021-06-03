@@ -1,6 +1,5 @@
 package cn.ondu.basecommon.http
 
-import cn.ondu.basecommon.util.LogUtil
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

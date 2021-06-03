@@ -2,6 +2,7 @@ package cn.ondu.basecommon.util
 
 import android.content.res.Resources
 import android.util.TypedValue
+import com.blankj.utilcode.util.ConvertUtils
 
 /**
  * @author: lcc
@@ -14,20 +15,16 @@ import android.util.TypedValue
 /**
  * dp转px
  */
-val Float.px
-    get() = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,
-        this,
-        Resources.getSystem().displayMetrics
-    )
+val Number.px
+        get() =  ConvertUtils.dp2px(this.toFloat())
 
 /**
  * px转dp
  */
-val Float.dp
-    get() = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_PX,
-        this,
-        Resources.getSystem().displayMetrics
-    )
+val Number.dp
+    get() =  ConvertUtils.px2dp(this.toFloat())
+
+val Number.sp
+    get() = ConvertUtils.px2sp(this.toFloat())
+
 
