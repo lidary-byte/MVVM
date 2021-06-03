@@ -49,6 +49,7 @@ open class BaseViewModel : ViewModel() {
     ) = liveData<HttpStatus<T>>(Dispatchers.Main) {
         emit(HttpStatus.LoadingStatus())
         try {
+            //repository里已经将异常抛出 这里直接捕获就行
             emit(HttpStatus.SuccessStatus(block()))
         } catch (error: Exception) {
             error.printStackTrace()
