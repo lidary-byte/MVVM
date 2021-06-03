@@ -1,10 +1,15 @@
 package cn.ondu.basecommon
 
-import androidx.lifecycle.*
-import cn.ondu.basecommon.http.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
+import cn.ondu.basecommon.http.BaseBean
+import cn.ondu.basecommon.http.HttpStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 open class BaseViewModel : ViewModel() {
     /**
@@ -36,6 +41,26 @@ open class BaseViewModel : ViewModel() {
 
     }
 
+    protected fun <T> httpToLiveData(
+        block: suspend () -> BaseBean<T>
+    ) = liveData<HttpStatus<T>>(Dispatchers.Main) {
+        emit(HttpStatus.LoadingStatus())
+        try{
+            val httpResult = withContext(Dispatchers.IO) {
+                block()
+            }
+            if (httpResult.isSuccess()) {
+                emit(HttpStatus.SuccessStatus(httpResult.data))
+            } else {
+                throw Exception(httpResult.errorMsg)
+            }
+        }catch (error:Exception){
+            error.printStackTrace()
+            emit(HttpStatus.ErrorStatus(error.message ?: ""))
+        }finally {
+            emit(HttpStatus.FinishStatus())
+        }
+    }
 
     protected fun <T> http(
         resultLiveData: MutableLiveData<HttpStatus<T>>,
