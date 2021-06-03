@@ -12,5 +12,6 @@ import cn.ondu.basecommontest.ApiService
  * @description:
  */
 class MainRepository : BaseRepository() {
-    suspend fun newSongList() = HttpClient.createApi(ApiService::class.java).loginPhone()
+    suspend fun allTypeList() = parsData { HttpClient.createApi(ApiService::class.java).allTypeList() }
+
 }

@@ -1,6 +1,7 @@
 package cn.ondu.basecommon.http
 
 import android.util.MalformedJsonException
+import com.squareup.moshi.JsonDataException
 import org.apache.http.conn.ConnectTimeoutException
 import org.json.JSONException
 import java.net.ConnectException
@@ -32,7 +33,7 @@ object ExceptionHandle {
                     ex = HttpException(Error.NETWORK_ERROR,e)
                     return ex
                 }
-                 is JSONException, is ParseException ,is MalformedJsonException -> {
+                 is JSONException,is JsonDataException, is ParseException ,is MalformedJsonException -> {
                     ex = HttpException(Error.PARSE_ERROR,e)
                     return ex
                 }
@@ -81,7 +82,7 @@ enum class Error(private val code: Int, private val err: String) {
     /**
      * 解析错误
      */
-    PARSE_ERROR(1001, "解析错误，请稍后再试"),
+    PARSE_ERROR(1001, "Json解析错误，请稍后再试"),
     /**
      * 网络错误
      */

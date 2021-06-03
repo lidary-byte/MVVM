@@ -32,7 +32,7 @@ open class BaseViewModel : ViewModel() {
                 }
                 .catch { error ->
                     val handleException = ExceptionHandle.handleException(error)
-                    resultLiveData.value = HttpStatus.ErrorStatus(handleException.message ?: "")
+                    resultLiveData.value = HttpStatus.ErrorStatus(handleException.errorMsg)
                 }
                 .onCompletion {
                     resultLiveData.value = HttpStatus.FinishStatus()
@@ -45,18 +45,11 @@ open class BaseViewModel : ViewModel() {
     }
 
     protected fun <T> httpToLiveData(
-        block: suspend () -> IBaseBean<T>
+        block: suspend () -> T
     ) = liveData<HttpStatus<T>>(Dispatchers.Main) {
         emit(HttpStatus.LoadingStatus())
         try {
-            val httpResult = withContext(Dispatchers.IO) {
-                block()
-            }
-            if (httpResult.isSuccess()) {
-                emit(HttpStatus.SuccessStatus(httpResult.data()))
-            } else {
-                throw HttpException(httpResult.errorCode(), httpResult.errorMsg())
-            }
+            emit(HttpStatus.SuccessStatus(block()))
         } catch (error: Exception) {
             error.printStackTrace()
             val handleException = ExceptionHandle.handleException(error)
@@ -68,16 +61,12 @@ open class BaseViewModel : ViewModel() {
 
     protected fun <T> http(
         resultLiveData: MutableLiveData<HttpStatus<T>>,
-        block: suspend () -> IBaseBean<T>
+        block: suspend () -> T
     ) {
         viewModelScope.launch(Dispatchers.Main) {
             flow {
                 val httpResult = block()
-                if (httpResult.isSuccess()) {
-                    emit(httpResult.data())
-                } else {
-                    throw Exception(httpResult.errorMsg())
-                }
+                    emit(httpResult)
             }
                 .flowOn(Dispatchers.IO)
                 .onStart {
@@ -85,7 +74,7 @@ open class BaseViewModel : ViewModel() {
                 }
                 .catch { error ->
                     val handleException = ExceptionHandle.handleException(error)
-                    resultLiveData.value = HttpStatus.ErrorStatus(handleException.message ?: "")
+                    resultLiveData.value = HttpStatus.ErrorStatus(handleException.errorMsg)
                 }
                 .onCompletion {
                     resultLiveData.value = HttpStatus.FinishStatus()

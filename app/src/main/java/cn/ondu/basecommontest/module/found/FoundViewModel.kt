@@ -15,8 +15,8 @@ import cn.ondu.basecommontest.bean.LoginPhoneBean
 class FoundViewModel : BaseViewModel(){
     private val mRepo by lazy { FoundRepository() }
     val musicListStatus by lazy { MutableLiveData<HttpStatus<LoginPhoneBean>>() }
-    fun musicList() = httpComplex(musicListStatus){
-        val data = mRepo.musicList()
-        emit(data)
-    }
+//    fun musicList() = httpComplex(musicListStatus){
+//        val data = mRepo.musicList()
+//        emit(data)
+//    }
 }
