@@ -6,6 +6,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 open class BaseRepository {
+
+    /**
+     * 数据脱壳
+     */
     suspend fun <T> parsData(
         block: suspend () -> IBaseBean<T>
     ): T {
