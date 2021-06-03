@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import cn.ondu.basecommon.http.BaseBean
+import cn.ondu.basecommon.http.ExceptionHandle
+import cn.ondu.basecommon.http.HttpException
+import cn.ondu.basecommon.http.IBaseBean
 import cn.ondu.basecommon.http.HttpStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -29,7 +31,8 @@ open class BaseViewModel : ViewModel() {
                     resultLiveData.value = HttpStatus.LoadingStatus()
                 }
                 .catch { error ->
-                    resultLiveData.value = HttpStatus.ErrorStatus(error.message ?: "")
+                    val handleException = ExceptionHandle.handleException(error)
+                    resultLiveData.value = HttpStatus.ErrorStatus(handleException.message ?: "")
                 }
                 .onCompletion {
                     resultLiveData.value = HttpStatus.FinishStatus()
@@ -42,37 +45,38 @@ open class BaseViewModel : ViewModel() {
     }
 
     protected fun <T> httpToLiveData(
-        block: suspend () -> BaseBean<T>
+        block: suspend () -> IBaseBean<T>
     ) = liveData<HttpStatus<T>>(Dispatchers.Main) {
         emit(HttpStatus.LoadingStatus())
-        try{
+        try {
             val httpResult = withContext(Dispatchers.IO) {
                 block()
             }
             if (httpResult.isSuccess()) {
-                emit(HttpStatus.SuccessStatus(httpResult.data))
+                emit(HttpStatus.SuccessStatus(httpResult.data()))
             } else {
-                throw Exception(httpResult.errorMsg)
+                throw HttpException(httpResult.errorCode(), httpResult.errorMsg())
             }
-        }catch (error:Exception){
+        } catch (error: Exception) {
             error.printStackTrace()
-            emit(HttpStatus.ErrorStatus(error.message ?: ""))
-        }finally {
+            val handleException = ExceptionHandle.handleException(error)
+            emit(HttpStatus.ErrorStatus(handleException.errorMsg))
+        } finally {
             emit(HttpStatus.FinishStatus())
         }
     }
 
     protected fun <T> http(
         resultLiveData: MutableLiveData<HttpStatus<T>>,
-        block: suspend () -> BaseBean<T>
+        block: suspend () -> IBaseBean<T>
     ) {
         viewModelScope.launch(Dispatchers.Main) {
             flow {
                 val httpResult = block()
                 if (httpResult.isSuccess()) {
-                    emit(httpResult.data)
+                    emit(httpResult.data())
                 } else {
-                    throw Exception(httpResult.errorMsg)
+                    throw Exception(httpResult.errorMsg())
                 }
             }
                 .flowOn(Dispatchers.IO)
@@ -80,7 +84,8 @@ open class BaseViewModel : ViewModel() {
                     resultLiveData.value = HttpStatus.LoadingStatus()
                 }
                 .catch { error ->
-                    resultLiveData.value = HttpStatus.ErrorStatus(error.message ?: "")
+                    val handleException = ExceptionHandle.handleException(error)
+                    resultLiveData.value = HttpStatus.ErrorStatus(handleException.message ?: "")
                 }
                 .onCompletion {
                     resultLiveData.value = HttpStatus.FinishStatus()
