@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import cn.ondu.basecommon.R
 import com.gyf.immersionbar.ktx.immersionBar
 
 abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
@@ -24,13 +25,13 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         liveDataListener()
     }
 
-    protected open fun initImmersionBar(){
+    protected open fun initImmersionBar() {
         immersionBar {
             //自动状态栏
             autoDarkModeEnable(true)
             fitsSystemWindows(true)
             keyboardEnable(true)  //解决软键盘与底部输入框冲突问题
-            statusBarColor("#ffffff")
+            statusBarColor(R.color.colorPrimary)
         }
     }
 

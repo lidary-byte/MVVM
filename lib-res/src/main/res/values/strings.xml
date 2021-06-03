@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">KVideo</string>
+    <string name="video">音乐</string>
+    <string name="person">我的</string>
+</resources>

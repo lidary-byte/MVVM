@@ -1,3 +1,4 @@
+include ':lib-res'
 rootProject.name='BaseCommonTest'
 include ':app'
 include ':lib-common'
