@@ -38,7 +38,11 @@ inline fun View.singTapClick(delay: Long = 800, crossinline singTap: () -> Unit)
     }
 }
 
-
+/**
+ * 这几个方法是ContentView 的扩展方法
+ * 因为加载失败,加载数据为空的viewId基本可以写死一个
+ * 但是ContentView不一定(其实也可以写死 但是不太好)
+ */
 fun ViewGroup.showContentView() {
     LoadStatus.loadingViewId?.let {
         this.rootView.findViewById<View>(it).visibility = View.GONE
