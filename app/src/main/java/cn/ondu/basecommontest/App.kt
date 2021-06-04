@@ -10,6 +10,7 @@ import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.tencent.mmkv.MMKV
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -26,6 +27,7 @@ class App : CommApp() {
             errorViewId = R.id.view_error
             errorTextId = R.id.tv_error
         }
+        MMKV.initialize(this)
         initHttp()
         initSmartRefreshLayout()
     }

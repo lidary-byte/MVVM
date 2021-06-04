@@ -49,4 +49,5 @@ dependencies {
     implementation  'com.scwang.smart:refresh-footer-classics:2.0.3'    //经典加载
     implementation("io.coil-kt:coil:1.2.1")
     implementation 'com.airbnb.android:lottie:3.7.0'
+    implementation 'com.tencent:mmkv-static:1.2.9'
 }
