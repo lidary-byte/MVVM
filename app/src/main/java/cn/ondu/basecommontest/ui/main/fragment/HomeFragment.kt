@@ -1,4 +1,4 @@
-package cn.ondu.basecommontest.ui.main
+package cn.ondu.basecommontest.ui.main.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,8 @@ import cn.ondu.basecommon.base.BaseFragment
 import cn.ondu.basecommon.base.BaseFragmentPagerAdapter
 import cn.ondu.basecommontest.bean.AllTypeBean
 import cn.ondu.basecommontest.databinding.FragmentHomeBinding
+import cn.ondu.basecommontest.ui.main.MainViewModel
+import cn.ondu.basecommontest.ui.main.fragment.HomeDetailsFragment
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
@@ -43,7 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         mViewModel.allTypeList().observe(viewLifecycleOwner, Observer {
             it.forEach {
                 mTitleDataString.add(it.title)
-                mFragments.add(HomeDetailsFragment())
+                mFragments.add(HomeDetailsFragment.instance(it.type))
             }
             this.mTitleData = it
             viewPagerAdapter.notifyDataSetChanged()

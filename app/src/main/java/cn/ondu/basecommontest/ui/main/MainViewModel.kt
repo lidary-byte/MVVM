@@ -60,7 +60,7 @@ class MainViewModel : BaseViewModel() {
         emit(typeList)
     }
 
-    fun fromTypeData() = httpToLiveData {
-        mRepo.fromTypeData()
+    fun fromTypeData(type:Int,page:Int) = httpToLiveData {
+        mRepo.fromTypeData(type,page)
     }
 }

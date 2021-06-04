@@ -4,10 +4,14 @@ import android.os.Bundle
 import cn.ondu.basecommon.base.BaseActivity
 import cn.ondu.basecommontest.R
 import cn.ondu.basecommontest.databinding.ActivityMainBinding
+import cn.ondu.basecommontest.ui.main.fragment.HomeFragment
+import cn.ondu.basecommontest.ui.main.fragment.PersonFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private val mFragments by lazy { listOf(HomeFragment(), PersonFragment()) }
+    private val mFragments by lazy { listOf(HomeFragment(),
+        PersonFragment()
+    ) }
     override fun initView(savedInstanceState: Bundle?) {
         mViewBinding.rgBottom.check(R.id.rg_video)
         changeFragment(0)

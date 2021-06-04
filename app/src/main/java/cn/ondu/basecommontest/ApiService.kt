@@ -12,8 +12,11 @@ import retrofit2.http.Query
  * @email：lidaryl@163.com
  * @description:
  */
-interface ApiService  {
+interface ApiService {
     @GET("api/resource/list")
-    suspend fun fromTypeData(@Query("page") page:Int = 1): KBaseBean<List<FromTypeListBean>>
+    suspend fun fromTypeData(
+        @Query("type") type: Int,
+        @Query("page") page: Int = 1
+    ): KBaseBean<List<FromTypeListBean>>
 
 }
