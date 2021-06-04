@@ -26,7 +26,7 @@ class MainViewModel : BaseViewModel() {
             data.add(AllTypeBean(4, "动漫"))
             data.add(AllTypeBean(5, "资讯"))
             data.add(AllTypeBean(6, "动作片"))
-            data.add(AllTypeBean(7, " 喜剧片"))
+            data.add(AllTypeBean(7, "喜剧片"))
             data.add(AllTypeBean(8, "爱情片"))
             data.add(AllTypeBean(9, "科幻片"))
             data.add(AllTypeBean(10, "恐怖片"))

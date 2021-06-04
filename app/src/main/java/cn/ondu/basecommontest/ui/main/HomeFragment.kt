@@ -24,7 +24,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewPagerAdapter by lazy {
         BaseFragmentPagerAdapter(
-            fragmentManager!!, mFragments, mTitleDataString,
+            childFragmentManager, mFragments, mTitleDataString,
             FragmentPagerAdapter.BEHAVIOR_SET_USER_VISIBLE_HINT
         )
     }
@@ -45,7 +45,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 mTitleDataString.add(it.title)
                 mFragments.add(HomeDetailsFragment())
             }
-            //默认获取type == 1的数据
             this.mTitleData = it
             viewPagerAdapter.notifyDataSetChanged()
         })
