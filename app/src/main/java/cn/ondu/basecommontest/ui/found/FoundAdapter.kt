@@ -1,4 +1,4 @@
-package cn.ondu.basecommontest.module.found
+package cn.ondu.basecommontest.ui.found
 
 import cn.ondu.basecommontest.R
 import cn.ondu.basecommontest.bean.LoginPhoneBean

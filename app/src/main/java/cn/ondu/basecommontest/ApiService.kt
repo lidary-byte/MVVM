@@ -1,8 +1,7 @@
 package cn.ondu.basecommontest
 
-import cn.ondu.basecommontest.bean.AllTypeListBean
+import cn.ondu.basecommontest.bean.FromTypeListBean
 import cn.ondu.basecommontest.bean.KBaseBean
-import cn.ondu.basecommontest.bean.LoginPhoneBean
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,6 +14,6 @@ import retrofit2.http.Query
  */
 interface ApiService  {
     @GET("api/resource/list")
-    suspend fun allTypeList(@Query("page") page:Int = 1): KBaseBean<List<AllTypeListBean>>
+    suspend fun fromTypeData(@Query("page") page:Int = 1): KBaseBean<List<FromTypeListBean>>
 
 }

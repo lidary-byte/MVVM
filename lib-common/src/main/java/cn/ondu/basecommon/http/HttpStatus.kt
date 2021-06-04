@@ -22,8 +22,8 @@ sealed class HttpStatus<T>(
  * http状态解析
  */
 inline fun <T> HttpStatus<T>.httpStatusParsing(
-    onLoading: () -> Unit, onError: (message: String?) -> Unit
-    , onFinish: () -> Unit, onSuccess: (t: T?) -> Unit
+    onLoading: () -> Unit = {}, onError: (message: String?) -> Unit= {}
+    , onFinish: () -> Unit= {}, onSuccess: (t: T?) -> Unit
 ) {
     when (this) {
         is HttpStatus.LoadingStatus -> onLoading()

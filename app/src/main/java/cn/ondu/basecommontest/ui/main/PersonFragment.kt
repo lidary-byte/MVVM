@@ -1,4 +1,4 @@
-package cn.ondu.basecommontest.module.person
+package cn.ondu.basecommontest.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

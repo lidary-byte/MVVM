@@ -1,6 +1,6 @@
 package cn.ondu.basecommontest.bean
 
-data class AllTypeListBean(
+data class FromTypeListBean(
     var actors: Any?,
     var count_series: Int?,
     var country: Any?,

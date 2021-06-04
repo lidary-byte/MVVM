@@ -1,4 +1,4 @@
-package cn.ondu.basecommontest.module.found
+package cn.ondu.basecommontest.ui.main
 
 import cn.ondu.basecommon.BaseRepository
 import cn.ondu.basecommon.http.HttpClient
@@ -11,6 +11,7 @@ import cn.ondu.basecommontest.ApiService
  * @email：lidaryl@163.com
  * @description:
  */
-class FoundRepository : BaseRepository() {
-//    suspend fun musicList() = HttpClient.createApi(ApiService::class.java).loginPhone()
+class MainRepository : BaseRepository() {
+    suspend fun fromTypeData() = parsData { HttpClient.createApi(ApiService::class.java).fromTypeData() }
+
 }

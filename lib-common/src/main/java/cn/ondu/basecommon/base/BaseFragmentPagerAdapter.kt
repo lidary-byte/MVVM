@@ -12,8 +12,13 @@ import androidx.fragment.app.FragmentPagerAdapter
  * @description:
  */
 
-class BaseFragmentPagerAdapter(fm:FragmentManager,private val fragments:List<Fragment>,private val title:Array<String>) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
-    override fun getItem(position: Int): Fragment  = fragments[position]
+class BaseFragmentPagerAdapter(
+    fm: FragmentManager,
+    private val fragments: MutableList<Fragment>,
+    private val title: MutableList<String>,
+    private val behavior: Int = BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+) : FragmentPagerAdapter(fm, behavior) {
+    override fun getItem(position: Int): Fragment = fragments[position]
 
     override fun getCount(): Int = fragments.size
 

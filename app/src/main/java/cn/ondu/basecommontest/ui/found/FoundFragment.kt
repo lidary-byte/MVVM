@@ -1,4 +1,4 @@
-package cn.ondu.basecommontest.module.found
+package cn.ondu.basecommontest.ui.found
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
