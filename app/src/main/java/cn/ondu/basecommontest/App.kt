@@ -6,6 +6,7 @@ import cn.ondu.basecommon.LoadStatus
 import cn.ondu.basecommon.http.HttpClient
 import cn.ondu.basecommon.http.RetrofitInterface
 import cn.ondu.basecommon.util.easyColor
+import cn.ondu.basecommontest.http.TokenInterceptor
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -64,6 +65,8 @@ class App : CommApp() {
             override fun isPrintLog(): Boolean = Config.APP_DEBUG
             override fun isDebug(): Boolean = Config.APP_DEBUG
         }
+        HttpClient.okHttpObj()
+            .addInterceptor(TokenInterceptor())
     }
 
     companion object {

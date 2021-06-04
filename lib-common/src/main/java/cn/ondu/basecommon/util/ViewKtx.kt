@@ -1,9 +1,13 @@
 package cn.ondu.basecommon.util
 
+import android.content.Context
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import cn.ondu.basecommon.LoadStatus
 import cn.ondu.basecommon.R
 import com.blankj.utilcode.util.LogUtils
@@ -38,6 +42,33 @@ inline fun View.singTapClick(delay: Long = 800, crossinline singTap: () -> Unit)
     }
 }
 
+/**
+ * 自定义Toast显示
+ */
+fun Context?.showToast(toastMessage: String?, showDuration: Int = Toast.LENGTH_SHORT) {
+    if (this==null){
+        return
+    }
+    toastMessage?.let {
+        val toastView = LayoutInflater.from(this).inflate(R.layout.view_toast, null)
+        val text = toastView.findViewById(R.id.toast_text) as TextView
+        text.text = it
+        val toast = Toast(this)
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.duration = showDuration
+        toast.view = toastView
+        toast.show()
+    }
+}
+
+fun Context?.showDefaultToast(toastMessage: String?, showDuration: Int = Toast.LENGTH_SHORT) {
+    if (this==null){
+        return
+    }
+    toastMessage?.let {
+        Toast.makeText(this,it,showDuration).show()
+    }
+}
 /**
  * 这几个方法是ContentView 的扩展方法
  * 因为加载失败,加载数据为空的viewId基本可以写死一个

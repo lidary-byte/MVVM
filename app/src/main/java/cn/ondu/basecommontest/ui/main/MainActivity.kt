@@ -1,20 +1,47 @@
 package cn.ondu.basecommontest.ui.main
 
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import cn.ondu.basecommon.base.BaseActivity
+import cn.ondu.basecommon.http.httpStatusParsing
+import cn.ondu.basecommon.util.showToast
 import cn.ondu.basecommontest.R
 import cn.ondu.basecommontest.databinding.ActivityMainBinding
 import cn.ondu.basecommontest.ui.main.fragment.HomeFragment
 import cn.ondu.basecommontest.ui.main.fragment.PersonFragment
+import com.tencent.mmkv.MMKV
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private val mFragments by lazy { listOf(HomeFragment(),
-        PersonFragment()
-    ) }
+    private val mFragments by lazy {
+        listOf(
+            HomeFragment(),
+            PersonFragment()
+        )
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
         mViewBinding.rgBottom.check(R.id.rg_video)
         changeFragment(0)
+    }
+
+    private val mViewModel by viewModels<MainViewModel>()
+    override fun initData(savedInstanceState: Bundle?) {
+        super.initData(savedInstanceState)
+        getToken()
+    }
+
+    private fun getToken() {
+        val mmkv = MMKV.defaultMMKV()!!
+        if (!mmkv.decodeString("token").isNullOrBlank()) {
+            return
+        }
+        mViewModel.token().observe(this, Observer {
+            it.httpStatusParsing(onError = { showToast(it) }) {
+                mmkv.encode("token", it!!.token)
+            }
+        })
     }
 
 

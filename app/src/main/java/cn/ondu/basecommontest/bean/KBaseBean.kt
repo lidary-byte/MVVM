@@ -16,3 +16,10 @@ class KBaseBean<T>(val status: Int, val message: String,val data: T) : IBaseBean
     override fun errorMsg(): String = message
     override fun data(): T = data
 }
+
+class DBaseBean<T>(val code: Int, val msg: String,val data: T) : IBaseBean<T> {
+    override fun isSuccess(): Boolean = errorCode() == Config.HTTP_SUCCESS_CODE
+    override fun errorCode(): Int = code
+    override fun errorMsg(): String = msg
+    override fun data(): T = data
+}

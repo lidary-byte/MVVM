@@ -1,5 +1,6 @@
 package cn.ondu.basecommon.http
 
+import android.util.Log
 import com.blankj.utilcode.util.LogUtils
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,34 +14,34 @@ object HttpClient {
      */
     var retrofitInterface: RetrofitInterface? = null
         get() {
-            if (field==null){
+            if (field == null) {
                 throw NullPointerException("请实现RetrofitInterface接口")
             }
             return field
         }
-    private fun okHttpObj(): OkHttpClient {
+
+      fun okHttpObj(): OkHttpClient.Builder {
         return OkHttpClient().newBuilder()
             .connectTimeout(5, TimeUnit.SECONDS)    //连接超时 5s
             .readTimeout(5, TimeUnit.SECONDS)  //读取超时
             .writeTimeout(5, TimeUnit.SECONDS).apply {
                 if (retrofitInterface!!.isPrintLog()) {
-                    addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger{
+                    addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
                         override fun log(message: String) {
-                             LogUtils.v(message,"okHttp")
+                            Log.v("okHttp", message)
                         }
-
                     }).setLevel(HttpLoggingInterceptor.Level.BODY))
                 }
-            }.build()
-
-
+            }
     }
+
+    fun okhttp() = okHttpObj().build()
 
     fun retrofitObj(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(retrofitInterface!!.baseUrl())
             .addConverterFactory(MoshiConverterFactory.create())
-            .client(okHttpObj())
+            .client(okhttp())
             .build()
     }
 

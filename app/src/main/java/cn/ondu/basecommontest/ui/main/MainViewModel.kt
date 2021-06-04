@@ -16,6 +16,7 @@ import kotlinx.coroutines.withContext
 class MainViewModel : BaseViewModel() {
     private val mRepo by lazy { MainRepository() }
 
+    fun token() = httpToLiveData { mRepo.token() }
 
     fun allTypeList() = liveData<List<AllTypeBean>>(Dispatchers.Main) {
         val typeList = withContext(Dispatchers.IO) {

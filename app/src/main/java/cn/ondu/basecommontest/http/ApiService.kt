@@ -1,7 +1,9 @@
-package cn.ondu.basecommontest
+package cn.ondu.basecommontest.http
 
+import cn.ondu.basecommontest.bean.DBaseBean
 import cn.ondu.basecommontest.bean.FromTypeListBean
 import cn.ondu.basecommontest.bean.KBaseBean
+import cn.ondu.basecommontest.bean.TokenBean
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,6 +15,9 @@ import retrofit2.http.Query
  * @description:
  */
 interface ApiService {
+    @GET("api/auth")
+    suspend fun token(): DBaseBean<TokenBean>
+
     @GET("api/resource/list")
     suspend fun fromTypeData(
         @Query("type") type: Int,
