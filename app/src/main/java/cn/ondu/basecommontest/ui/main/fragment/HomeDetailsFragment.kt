@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.ondu.basecommon.base.BaseFragment
 import cn.ondu.basecommon.http.httpStatusParsing
+import cn.ondu.basecommon.util.showContentView
+import cn.ondu.basecommon.util.showLoadingView
 import cn.ondu.basecommontest.databinding.FragmentHomeDetailsBinding
 import cn.ondu.basecommontest.ui.main.MainViewModel
 import cn.ondu.basecommontest.ui.main.adapter.HomeDetailsAdapter
@@ -26,8 +28,11 @@ class HomeDetailsFragment : BaseFragment<FragmentHomeDetailsBinding>() {
      */
     private fun loadDataFromType() {
         mViewModel.fromTypeData(mType, page).observe(viewLifecycleOwner, Observer {
-            it.httpStatusParsing {
+            it.httpStatusParsing({mViewBinding.refreshLayout.showLoadingView()},{},{
+
+            }) {
                 mAdapter.setList(it)
+                mViewBinding.refreshLayout.showContentView()
             }
         })
     }

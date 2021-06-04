@@ -1,6 +1,10 @@
 package cn.ondu.basecommon.util
 
+import android.app.Activity
 import android.view.View
+import android.view.ViewGroup
+import cn.ondu.basecommon.LoadStatus
+import cn.ondu.basecommon.base.BaseActivity
 import java.util.*
 
 /**
@@ -31,3 +35,64 @@ inline fun View.singTapClick(delay: Long = 800, crossinline singTap: () -> Unit)
         view = this
     }
 }
+
+
+fun ViewGroup.showContentView() {
+    LoadStatus.loadingViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+    LoadStatus.emptyViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+    LoadStatus.errorViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+    LoadStatus.contentViewId?.let {
+        this.findViewById<View>(it).visibility = View.VISIBLE
+    }
+}
+fun ViewGroup.showLoadingView() {
+    LoadStatus.loadingViewId?.let {
+        this.findViewById<View>(it).visibility = View.VISIBLE
+    }
+    LoadStatus.emptyViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+    LoadStatus.errorViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+    LoadStatus.contentViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+}
+
+fun ViewGroup.showEmptyView() {
+    LoadStatus.loadingViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+    LoadStatus.emptyViewId?.let {
+        this.findViewById<View>(it).visibility = View.VISIBLE
+    }
+    LoadStatus.errorViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+    LoadStatus.contentViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+}
+
+fun ViewGroup.showErrorView() {
+    LoadStatus.loadingViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+    LoadStatus.emptyViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+    LoadStatus.errorViewId?.let {
+        this.findViewById<View>(it).visibility = View.VISIBLE
+    }
+    LoadStatus.contentViewId?.let {
+        this.findViewById<View>(it).visibility = View.GONE
+    }
+}
+

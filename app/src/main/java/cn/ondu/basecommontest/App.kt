@@ -1,8 +1,8 @@
 package cn.ondu.basecommontest
 
 import android.content.Context
-import cn.ondu.basecommon.BaseCommon
 import cn.ondu.basecommon.CommApp
+import cn.ondu.basecommon.LoadStatus
 import cn.ondu.basecommon.http.HttpClient
 import cn.ondu.basecommon.http.RetrofitInterface
 import cn.ondu.basecommon.util.easyColor
@@ -20,7 +20,9 @@ class App : CommApp() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        BaseCommon.init(true, this)
+        LoadStatus.apply {
+            loadingViewId = R.id.view_loading
+        }
         initHttp()
         initSmartRefreshLayout()
     }
