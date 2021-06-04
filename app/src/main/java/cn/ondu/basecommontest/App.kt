@@ -22,6 +22,9 @@ class App : CommApp() {
         instance = this
         LoadStatus.apply {
             loadingViewId = R.id.view_loading
+            emptyViewId = R.id.view_empty
+            errorViewId = R.id.view_error
+            errorTextId = R.id.tv_error
         }
         initHttp()
         initSmartRefreshLayout()

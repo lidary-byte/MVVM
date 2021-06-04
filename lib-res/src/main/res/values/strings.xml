@@ -2,4 +2,6 @@
     <string name="app_name">KVideo</string>
     <string name="video">视频</string>
     <string name="person">我的</string>
+    <string name="load_error">加载失败</string>
+    <string name="load_empty">暂无数据</string>
 </resources>

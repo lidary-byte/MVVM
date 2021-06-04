@@ -1,10 +1,12 @@
 package cn.ondu.basecommon.util
 
-import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import cn.ondu.basecommon.LoadStatus
-import cn.ondu.basecommon.base.BaseActivity
+import cn.ondu.basecommon.R
+import com.blankj.utilcode.util.LogUtils
 import java.util.*
 
 /**
@@ -39,60 +41,57 @@ inline fun View.singTapClick(delay: Long = 800, crossinline singTap: () -> Unit)
 
 fun ViewGroup.showContentView() {
     LoadStatus.loadingViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
+        this.rootView.findViewById<View>(it).visibility = View.GONE
     }
     LoadStatus.emptyViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
+        this.rootView.findViewById<View>(it).visibility = View.GONE
     }
     LoadStatus.errorViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
+        this.rootView.findViewById<View>(it).visibility = View.GONE
     }
-    LoadStatus.contentViewId?.let {
-        this.findViewById<View>(it).visibility = View.VISIBLE
-    }
+    this.visibility = View.VISIBLE
 }
+
 fun ViewGroup.showLoadingView() {
     LoadStatus.loadingViewId?.let {
-        this.findViewById<View>(it).visibility = View.VISIBLE
+        this.rootView.findViewById<View>(it).visibility = View.VISIBLE
     }
     LoadStatus.emptyViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
+        this.rootView.findViewById<View>(it).visibility = View.GONE
     }
     LoadStatus.errorViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
+        this.rootView.findViewById<View>(it).visibility = View.GONE
     }
-    LoadStatus.contentViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
-    }
+    this.visibility = View.GONE
 }
 
 fun ViewGroup.showEmptyView() {
     LoadStatus.loadingViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
+        this.rootView.findViewById<View>(it).visibility = View.GONE
     }
     LoadStatus.emptyViewId?.let {
-        this.findViewById<View>(it).visibility = View.VISIBLE
+        this.rootView.findViewById<View>(it).visibility = View.VISIBLE
     }
     LoadStatus.errorViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
+        this.rootView.findViewById<View>(it).visibility = View.GONE
     }
-    LoadStatus.contentViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
-    }
+    this.visibility = View.GONE
+
 }
 
-fun ViewGroup.showErrorView() {
+fun ViewGroup.showErrorView(errorText: String? = this.context.easyString(R.string.load_error)) {
     LoadStatus.loadingViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
+        this.rootView.findViewById<View>(it).visibility = View.GONE
     }
     LoadStatus.emptyViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
+        this.rootView.findViewById<View>(it).visibility = View.GONE
     }
     LoadStatus.errorViewId?.let {
-        this.findViewById<View>(it).visibility = View.VISIBLE
+        this.rootView.findViewById<View>(it).visibility = View.VISIBLE
     }
-    LoadStatus.contentViewId?.let {
-        this.findViewById<View>(it).visibility = View.GONE
-    }
+    LoadStatus.errorTextId?.let { this.rootView.findViewById<TextView>(it).text = errorText }
+
+    this.visibility = View.GONE
+
 }
 
