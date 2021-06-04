@@ -1,19 +1,27 @@
 package cn.ondu.basecommontest.module.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import cn.ondu.basecommon.base.BaseActivity
 import cn.ondu.basecommon.base.BaseFragmentPagerAdapter
 import cn.ondu.basecommon.http.httpStatusParsing
+import cn.ondu.basecommon.util.CommSharedViewModel
+import cn.ondu.basecommon.util.singTapClick
 import cn.ondu.basecommontest.R
+import cn.ondu.basecommontest.SharedViewModel
 import cn.ondu.basecommontest.databinding.ActivityMainBinding
+import cn.ondu.basecommontest.module.LoginActivity
 import cn.ondu.basecommontest.module.found.FoundFragment
 import cn.ondu.basecommontest.module.person.PersonFragment
+import com.blankj.utilcode.util.LogUtils
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private val mViewModel by viewModels<MainViewModel>()
+    private val sharedViewModel by  applicationViewModel<SharedViewModel>(this)
 
     override fun initView(savedInstanceState: Bundle?) {
 //        StatusBarUtil.setDarkMode(this)
@@ -29,6 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         mViewModel.allType()
 
+        mViewBinding.btnTest.singTapClick { startActivity(Intent(this,LoginActivity::class.java)) }
         mViewModel.allTypeState.observe(this, Observer {
 //            it.httpStatusParsing({
 //                LogUtil.e("=====","加载中")
@@ -43,6 +52,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //        mViewModel.loginPhone().observe(this, Observer {
 //
 //        })
+        sharedViewModel.mMoment.observeInActivity(this, Observer {
+            LogUtils.e("=====================",it)
+        })
     }
 
     override fun liveDataListener() {

@@ -1,15 +1,13 @@
 package cn.ondu.basecommontest
 
-import android.app.Application
 import cn.ondu.basecommon.BaseCommon
+import cn.ondu.basecommon.CommApp
 import cn.ondu.basecommon.http.HttpClient
 import cn.ondu.basecommon.http.RetrofitInterface
-import java.lang.IllegalStateException
-import java.lang.NullPointerException
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-class App : Application() {
+class App : CommApp() {
 
     override fun onCreate() {
         super.onCreate()

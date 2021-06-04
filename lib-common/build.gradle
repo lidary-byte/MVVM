@@ -79,4 +79,6 @@ dependencies {
     // if u use AndroidX, use the following
     api 'com.blankj:utilcodex:1.30.6'
     implementation project(path: ':lib-res')
+    //https://github.com/KunMinX/UnPeek-LiveData
+    api 'com.kunminx.archi:unpeek-livedata:4.5.0-beta1'
 }
