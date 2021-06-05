@@ -20,7 +20,7 @@ object HttpClient {
             return field
         }
 
-      fun okHttpObj(): OkHttpClient.Builder {
+    fun okHttpBuilder(): OkHttpClient.Builder {
         return OkHttpClient().newBuilder()
             .connectTimeout(5, TimeUnit.SECONDS)    //连接超时 5s
             .readTimeout(5, TimeUnit.SECONDS)  //读取超时
@@ -35,13 +35,20 @@ object HttpClient {
             }
     }
 
-    fun okhttp() = okHttpObj().build()
+
+    var okHttpClient: OkHttpClient? = null
+        get() {
+            if (field == null) {
+                return okHttpBuilder().build()
+            }
+            return field
+        }
 
     fun retrofitObj(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(retrofitInterface!!.baseUrl())
             .addConverterFactory(MoshiConverterFactory.create())
-            .client(okhttp())
+            .client(okHttpClient!!)
             .build()
     }
 

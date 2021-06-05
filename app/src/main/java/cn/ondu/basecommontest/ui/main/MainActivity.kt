@@ -6,10 +6,12 @@ import androidx.lifecycle.Observer
 import cn.ondu.basecommon.base.BaseActivity
 import cn.ondu.basecommon.http.httpStatusParsing
 import cn.ondu.basecommon.util.showToast
+import cn.ondu.basecommontest.MMKVConstant
 import cn.ondu.basecommontest.R
 import cn.ondu.basecommontest.databinding.ActivityMainBinding
 import cn.ondu.basecommontest.ui.main.fragment.HomeFragment
 import cn.ondu.basecommontest.ui.main.fragment.PersonFragment
+import com.blankj.utilcode.util.LogUtils
 import com.tencent.mmkv.MMKV
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -34,12 +36,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun getToken() {
         val mmkv = MMKV.defaultMMKV()!!
-        if (!mmkv.decodeString("token").isNullOrBlank()) {
+        if (!mmkv.decodeString(MMKVConstant.KEY_TOKEN).isNullOrBlank()) {
             return
         }
         mViewModel.token().observe(this, Observer {
             it.httpStatusParsing(onError = { showToast(it) }) {
-                mmkv.encode("token", it!!.token)
+                mmkv.encode(MMKVConstant.KEY_TOKEN, it!!.token)
             }
         })
     }

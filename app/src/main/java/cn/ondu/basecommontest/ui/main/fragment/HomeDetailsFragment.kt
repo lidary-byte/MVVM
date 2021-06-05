@@ -28,7 +28,7 @@ class HomeDetailsFragment : BaseFragment<FragmentHomeDetailsBinding>() {
      * 根据type加载数据
      */
     private fun loadDataFromType() {
-        mViewModel.fromTypeData(mType, page).observe(viewLifecycleOwner, Observer {
+        mViewModel.fromTypeData(mType, "",page).observe(viewLifecycleOwner, Observer {
             it.httpStatusParsing({ mViewBinding.recyclerView.showLoadingView() }, {
                 mViewBinding.recyclerView.showErrorView(it)
             }) {

@@ -1,6 +1,7 @@
 package cn.ondu.basecommontest.http
 
 import cn.ondu.basecommontest.MMKVConstant
+import com.blankj.utilcode.util.LogUtils
 import com.tencent.mmkv.MMKV
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -13,9 +14,7 @@ class TokenInterceptor : Interceptor {
                 MMKV.defaultMMKV()?.decodeString(MMKVConstant.KEY_TOKEN) ?: ""
             )
             .build()
-
+        LogUtils.e("=================",MMKV.defaultMMKV()?.decodeString(MMKVConstant.KEY_TOKEN) ?: "")
         return chain.proceed(request)
-
     }
-
 }

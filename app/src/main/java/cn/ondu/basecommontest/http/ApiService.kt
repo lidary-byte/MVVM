@@ -18,9 +18,10 @@ interface ApiService {
     @GET("api/auth")
     suspend fun token(): DBaseBean<TokenBean>
 
-    @GET("api/resource/list")
+    @GET("api/list")
     suspend fun fromTypeData(
         @Query("type") type: Int,
+        @Query("rank") rank:String,
         @Query("page") page: Int = 1
     ): KBaseBean<List<FromTypeListBean>>
 

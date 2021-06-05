@@ -12,7 +12,7 @@ import cn.ondu.basecommontest.http.ApiService
  * @description:
  */
 class MainRepository : BaseRepository() {
-    suspend fun fromTypeData(type:Int,page:Int) = parsData { HttpClient.createApi(ApiService::class.java).fromTypeData(type,page) }
+    suspend fun fromTypeData(type:Int,rank:String,page:Int) = parsData { HttpClient.createApi(ApiService::class.java).fromTypeData(type,rank,page) }
 
     suspend fun token() = parsData { HttpClient.createApi(ApiService::class.java).token() }
 }
