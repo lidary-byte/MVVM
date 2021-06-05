@@ -4,13 +4,9 @@ import android.content.Context
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import cn.ondu.basecommon.LoadStatus
 import cn.ondu.basecommon.R
-import com.blankj.utilcode.util.LogUtils
 import java.util.*
 
 /**
@@ -68,65 +64,5 @@ fun Context?.showDefaultToast(toastMessage: String?, showDuration: Int = Toast.L
     toastMessage?.let {
         Toast.makeText(this,it,showDuration).show()
     }
-}
-/**
- * 这几个方法是ContentView 的扩展方法
- * 因为加载失败,加载数据为空的viewId基本可以写死一个
- * 但是ContentView不一定(其实也可以写死 但是不太好)
- */
-fun ViewGroup.showContentView() {
-    LoadStatus.loadingViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    LoadStatus.emptyViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    LoadStatus.errorViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    this.visibility = View.VISIBLE
-}
-
-fun ViewGroup.showLoadingView() {
-    LoadStatus.loadingViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.VISIBLE
-    }
-    LoadStatus.emptyViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    LoadStatus.errorViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    this.visibility = View.GONE
-}
-
-fun ViewGroup.showEmptyView() {
-    LoadStatus.loadingViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    LoadStatus.emptyViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.VISIBLE
-    }
-    LoadStatus.errorViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    this.visibility = View.GONE
-
-}
-
-fun ViewGroup.showErrorView(errorText: String? = this.context.easyString(R.string.load_error)) {
-    LoadStatus.loadingViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    LoadStatus.emptyViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    LoadStatus.errorViewId?.let {
-        this.rootView.findViewById<View>(it).visibility = View.VISIBLE
-    }
-    LoadStatus.errorTextId?.let { this.rootView.findViewById<TextView>(it).text = errorText }
-
-    this.visibility = View.GONE
-
 }
 

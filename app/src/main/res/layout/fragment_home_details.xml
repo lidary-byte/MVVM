@@ -23,6 +23,7 @@
             layout="@layout/view_error"
             android:visibility="gone" />
 
-        <include layout="@layout/view_loading" />
+        <include layout="@layout/view_loading"
+            android:visibility="gone"/>
     </FrameLayout>
 </com.scwang.smart.refresh.layout.SmartRefreshLayout>

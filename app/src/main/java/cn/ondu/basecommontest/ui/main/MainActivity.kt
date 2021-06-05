@@ -31,20 +31,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val mViewModel by viewModels<MainViewModel>()
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        getToken()
     }
 
-    private fun getToken() {
-        val mmkv = MMKV.defaultMMKV()!!
-        if (!mmkv.decodeString(MMKVConstant.KEY_TOKEN).isNullOrBlank()) {
-            return
-        }
-        mViewModel.token().observe(this, Observer {
-            it.httpStatusParsing(onError = { showToast(it) }) {
-                mmkv.encode(MMKVConstant.KEY_TOKEN, it!!.token)
-            }
-        })
-    }
+
 
 
     /**

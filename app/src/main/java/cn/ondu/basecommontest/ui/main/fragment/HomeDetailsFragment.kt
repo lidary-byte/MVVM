@@ -1,5 +1,6 @@
 package cn.ondu.basecommontest.ui.main.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,10 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.ondu.basecommon.base.BaseFragment
 import cn.ondu.basecommon.http.httpStatusParsing
-import cn.ondu.basecommon.util.showContentView
-import cn.ondu.basecommon.util.showErrorView
-import cn.ondu.basecommon.util.showLoadingView
+import cn.ondu.basecommon.showContentView
+import cn.ondu.basecommon.showErrorView
+import cn.ondu.basecommon.showLoadingView
 import cn.ondu.basecommontest.databinding.FragmentHomeDetailsBinding
+import cn.ondu.basecommontest.ui.details.DetailsActivity
 import cn.ondu.basecommontest.ui.main.MainViewModel
 import cn.ondu.basecommontest.ui.main.adapter.HomeDetailsAdapter
 
@@ -28,7 +30,7 @@ class HomeDetailsFragment : BaseFragment<FragmentHomeDetailsBinding>() {
      * 根据type加载数据
      */
     private fun loadDataFromType() {
-        mViewModel.fromTypeData(mType, "",page).observe(viewLifecycleOwner, Observer {
+        mViewModel.fromTypeData(mType,page).observe(viewLifecycleOwner, Observer {
             it.httpStatusParsing({ mViewBinding.recyclerView.showLoadingView() }, {
                 mViewBinding.recyclerView.showErrorView(it)
             }) {
@@ -38,6 +40,13 @@ class HomeDetailsFragment : BaseFragment<FragmentHomeDetailsBinding>() {
         })
     }
 
+
+    override fun viewListener() {
+        super.viewListener()
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+            startActivity(Intent(requireActivity(),DetailsActivity::class.java))
+        }
+    }
     override fun onLazyAfterView() {
         super.onLazyAfterView()
         loadDataFromType()

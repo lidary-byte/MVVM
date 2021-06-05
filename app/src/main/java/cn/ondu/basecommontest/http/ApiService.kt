@@ -1,9 +1,8 @@
 package cn.ondu.basecommontest.http
 
-import cn.ondu.basecommontest.bean.DBaseBean
 import cn.ondu.basecommontest.bean.FromTypeListBean
 import cn.ondu.basecommontest.bean.KBaseBean
-import cn.ondu.basecommontest.bean.TokenBean
+import cn.ondu.basecommontest.bean.VideoDetailsBean
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,14 +14,12 @@ import retrofit2.http.Query
  * @description:
  */
 interface ApiService {
-    @GET("api/auth")
-    suspend fun token(): DBaseBean<TokenBean>
-
-    @GET("api/list")
+    @GET("api/resource/list")
     suspend fun fromTypeData(
         @Query("type") type: Int,
-        @Query("rank") rank:String,
         @Query("page") page: Int = 1
     ): KBaseBean<List<FromTypeListBean>>
 
+    @GET("api/detail")
+    suspend fun videoDetails(@Query("ids") ids: String): KBaseBean<List<VideoDetailsBean>>
 }

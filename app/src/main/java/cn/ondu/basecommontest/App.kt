@@ -65,8 +65,6 @@ class App : CommApp() {
             override fun isPrintLog(): Boolean = Config.APP_DEBUG
             override fun isDebug(): Boolean = Config.APP_DEBUG
         }
-        HttpClient.okHttpClient = HttpClient.okHttpBuilder().addInterceptor(TokenInterceptor())
-            .addNetworkInterceptor(TokenInterceptor()).build()
 
     }
 

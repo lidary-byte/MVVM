@@ -1,4 +1,4 @@
-package cn.ondu.basecommontest.ui.main
+package cn.ondu.basecommontest.ui.details
 
 import cn.ondu.basecommon.BaseRepository
 import cn.ondu.basecommon.http.HttpClient
@@ -11,7 +11,7 @@ import cn.ondu.basecommontest.http.ApiService
  * @email：lidaryl@163.com
  * @description:
  */
-class MainRepository : BaseRepository() {
-    suspend fun fromTypeData(type:Int,page:Int) = parsData { HttpClient.createApi(ApiService::class.java).fromTypeData(type,page) }
+class DetailsRepository : BaseRepository() {
+    suspend fun details(ids:String) = parsData { HttpClient.createApi(ApiService::class.java).videoDetails(ids) }
 
 }
