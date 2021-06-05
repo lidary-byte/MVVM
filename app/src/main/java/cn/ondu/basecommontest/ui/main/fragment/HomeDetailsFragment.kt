@@ -44,7 +44,7 @@ class HomeDetailsFragment : BaseFragment<FragmentHomeDetailsBinding>() {
     override fun viewListener() {
         super.viewListener()
         mAdapter.setOnItemClickListener { adapter, view, position ->
-            startActivity(Intent(requireActivity(),DetailsActivity::class.java))
+            DetailsActivity.start(requireContext(),mAdapter.data[position].id)
         }
     }
     override fun onLazyAfterView() {

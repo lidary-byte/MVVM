@@ -2,11 +2,11 @@ package cn.ondu.basecommontest.bean
 
 data class VideoDetailsBean(
     var actors: String?,
-    var count_series: Int?,
+    var count_series: Int,
     var country: String?,
     var cover: String?,
     var created_at: String?,
-    var `data`: List<Data>?,
+    var `data`: List<Data>,
     var data_source: List<DataSource>?,
     var hits: Any?,
     var id: Int?,

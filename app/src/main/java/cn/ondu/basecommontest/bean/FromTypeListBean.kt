@@ -9,7 +9,7 @@ data class FromTypeListBean(
     var `data`: List<Data>?,
     var data_source: Any?,
     var hits: Any?,
-    var id: Int?,
+    var id: String,
     var introduction: String?,
     var lang: Any?,
     var miner: Any?,
@@ -30,7 +30,7 @@ data class FromTypeListBean(
 )
 
 data class Data(
-    var name: String?,
-    var url: String?
+    var name: String,
+    var url: String
 )
 
