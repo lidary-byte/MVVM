@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <cn.ondu.basecommon.view.CommonToolBar
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorWhite"
+        app:title="@string/register_title" />
+
+
+    <ImageView
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/default_nor_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+    <EditText
+        android:id="@+id/et_account"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_width="match_parent"
+        android:textColor="@color/colorBlack"
+        android:layout_height="wrap_content"
+        android:hint="请输入用户名" />
+
+    <EditText
+        android:id="@+id/et_pass_word"
+        android:layout_width="match_parent"
+        android:inputType="textPassword"
+        android:layout_marginStart="22dp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginEnd="22dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:hint="请输入密码" />
+
+    <cn.ondu.chat.widget.EnableButton
+        android:text="注册"
+        android:layout_marginStart="22dp"
+        android:id="@+id/tv_register"
+        android:gravity="center"
+        android:enabled="false"
+        android:layout_marginEnd="22dp"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+</LinearLayout>

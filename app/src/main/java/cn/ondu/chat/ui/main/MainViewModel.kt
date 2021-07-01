@@ -14,7 +14,6 @@ import kotlinx.coroutines.withContext
  * @description:
  */
 class MainViewModel : BaseViewModel() {
-    private val mRepo by lazy { MainRepository() }
 
 
     fun allTypeList() = liveData<List<AllTypeBean>>(Dispatchers.Main) {
@@ -61,6 +60,6 @@ class MainViewModel : BaseViewModel() {
     }
 
     fun fromTypeData(type:Int,page:Int) = httpToLiveData {
-        mRepo.fromTypeData(type,page)
+      
     }
 }

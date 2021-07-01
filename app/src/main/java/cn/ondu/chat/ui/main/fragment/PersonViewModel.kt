@@ -1,27 +1,22 @@
 package cn.ondu.chat.ui.main.fragment
 
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.MutableLiveData
+import cn.jpush.im.android.api.JMessageClient
+import cn.jpush.im.api.BasicCallback
 import cn.ondu.basecommon.BaseViewModel
-import com.blankj.utilcode.util.LogUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
+import cn.ondu.chat.bean.JStatus
 
 class PersonViewModel : BaseViewModel() {
-    private val mRepo by lazy { PersonRepo() }
-    fun login(account: String, pwd: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            mRepo.login(account, pwd)
-                .flowOn(Dispatchers.IO)
-                .catch {
 
-                }
-                .collect {
-                    LogUtils.e("================",it.toString())
-                }
-        }
+
+    val loginStatus by lazy { MutableLiveData<JStatus>() }
+    fun login(account: String, pwd: String) {
+        loginStatus.value = JStatus.LoadingStatus()
+        JMessageClient.login(account,pwd,object : BasicCallback(){
+            override fun gotResult(p0: Int, p1: String?) {
+                loginStatus.value = JStatus.EndStatus(p0,p1)
+            }
+        })
 
     }
 }

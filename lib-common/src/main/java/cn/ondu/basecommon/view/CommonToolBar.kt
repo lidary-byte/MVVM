@@ -64,7 +64,7 @@ open class CommonToolBar : RelativeLayout {
         textView.layoutParams = textLayoutParams
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,18f)
         textView.text = title
-        textView.setTextColor(context.easyColor(R.color.colorWhite))
+        textView.setTextColor(context.easyColor(R.color.colorBlack))
 
         val textRightLayoutParams = textViewRight.layoutParams as LayoutParams
         textRightLayoutParams.addRule(ALIGN_PARENT_END)

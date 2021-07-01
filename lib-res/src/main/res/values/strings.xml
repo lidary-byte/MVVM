@@ -1,7 +1,11 @@
 <resources>
-    <string name="app_name">Gitee</string>
-    <string name="video">视频</string>
-    <string name="person">我的</string>
+    <string name="app_name">WeChat</string>
+    <string name="chat">微信</string>
+    <string name="friend">通讯录</string>
+    <string name="find">发现</string>
+    <string name="me">我</string>
+    <string name="register_title">用户注册</string>
+    <string name="login_title">用户登陆</string>
     <string name="load_error">加载失败</string>
     <string name="load_empty">暂无数据</string>
 </resources>

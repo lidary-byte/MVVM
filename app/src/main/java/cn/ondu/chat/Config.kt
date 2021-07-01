@@ -10,7 +10,7 @@ package cn.ondu.chat
 object Config {
     const val APP_DEBUG = true
     const val HOST_URL = "https://mediachain.info/"
-    const val HTTP_SUCCESS_CODE = 200
+    const val HTTP_SUCCESS_CODE = 0
 
 
 }

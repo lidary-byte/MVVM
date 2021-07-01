@@ -33,7 +33,6 @@ class HomeDetailsFragment : BaseFragment<FragmentHomeDetailsBinding>() {
             it.httpStatusParsing({ mViewBinding.recyclerView.showLoadingView() }, {
                 mViewBinding.recyclerView.showErrorView(it)
             }) {
-                mAdapter.setList(it)
                 mViewBinding.recyclerView.showContentView()
             }
         })

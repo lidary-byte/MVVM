@@ -19,6 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.account.LoginActivity"/>
+        <activity android:name=".ui.account.RegisterActivity"/>
+
+
         <activity android:name="cn.ondu.chat.ui.details.DetailsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait"/>

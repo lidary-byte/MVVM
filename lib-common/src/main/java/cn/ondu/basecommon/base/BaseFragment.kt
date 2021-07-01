@@ -1,12 +1,17 @@
 package cn.ondu.basecommon.base
 
 import android.content.res.Configuration
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import cn.ondu.basecommon.R
+import cn.ondu.basecommon.view.LoadingDialog
 import com.gyf.immersionbar.components.ImmersionOwner
 import com.gyf.immersionbar.components.ImmersionProxy
 
@@ -16,10 +21,13 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), ImmersionOwner {
     private var _viewBinding: T? = null
     protected val mViewBinding by lazy { _viewBinding!! }
 
+    private val loadingDialog by lazy { LoadingDialog(requireContext()) }
+
     /**
      * ImmersionBar代理类
      */
     private val mImmersionProxy by lazy { ImmersionProxy(this) }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,6 +99,14 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), ImmersionOwner {
         mImmersionProxy.onConfigurationChanged(newConfig)
     }
 
+    protected fun showLoading(text: String = "加载中,请稍等...") {
+        loadingDialog.show(text)
+    }
+
+    protected fun hideLoading() {
+        loadingDialog.dismiss()
+    }
+
 
     /**
      * 懒加载，在view初始化完成之前执行
@@ -104,14 +120,18 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), ImmersionOwner {
      */
     override fun onLazyAfterView() {}
     override fun onDestroyView() {
+        if (loadingDialog.isShowing){
+            loadingDialog.dismiss()
+        }
         super.onDestroyView()
         if (_viewBinding != null) {
             _viewBinding = null
         }
     }
 
-     override fun onInvisible() {}
-     override fun onVisible() {}
+    override fun onInvisible() {}
+    override fun onVisible() {}
+
     /**
      * 是否可以实现沉浸式，当为true的时候才可以执行initImmersionBar方法
      * Immersion bar enabled boolean.
@@ -120,5 +140,5 @@ abstract class BaseFragment<T : ViewBinding> : Fragment(), ImmersionOwner {
      */
     override fun immersionBarEnabled(): Boolean = false
 
-     override fun initImmersionBar() {}
+    override fun initImmersionBar() {}
 }

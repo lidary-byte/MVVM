@@ -32,16 +32,7 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding>() {
 
 
     private fun videoDetails() {
-        mViewModel.videoDetails(ids).observe(this, Observer {
-            it.httpStatusParsing {
-                val videoDetail = it!![0]
-                mAdapter.setList(videoDetail.data)
-                watchIndex(
-                    videoDetail.data[mAdapter.watchIndex].url,
-                    videoDetail.data[mAdapter.watchIndex].name
-                )
-            }
-        })
+
     }
 
     override fun viewListener() {

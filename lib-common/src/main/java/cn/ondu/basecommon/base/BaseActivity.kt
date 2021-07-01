@@ -10,6 +10,7 @@ import androidx.viewbinding.ViewBinding
 import cn.ondu.basecommon.CommApp
 import cn.ondu.basecommon.R
 import cn.ondu.basecommon.util.CommSharedViewModel
+import cn.ondu.basecommon.view.LoadingDialog
 import com.gyf.immersionbar.ktx.immersionBar
 
 
@@ -19,7 +20,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     protected val mLogTag = this::class.java.simpleName
 
     protected lateinit var mViewBinding: T
-
+    private val loadingDialog by lazy { LoadingDialog(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewBinding = viewBinding()
@@ -88,6 +89,21 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
                 "Your activity/fragment is not yet attached to "
                         + "Application. You can't request ViewModel before onCreate call."
             )
+    }
+    protected fun showLoading(text: String = "加载中,请稍等...") {
+        loadingDialog.show(text)
+    }
+
+    protected fun hideLoading() {
+        loadingDialog.dismiss()
+    }
+
+    override fun onDestroy() {
+        if (loadingDialog.isShowing){
+            loadingDialog.dismiss()
+        }
+        super.onDestroy()
+
     }
 
     protected val mTag = this::class.java.simpleName

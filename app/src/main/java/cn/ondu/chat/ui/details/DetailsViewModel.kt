@@ -10,11 +10,7 @@ import cn.ondu.basecommon.BaseViewModel
  * @description:
  */
 class DetailsViewModel : BaseViewModel() {
-    private val mRepo by lazy { DetailsRepository() }
-
-
 
     fun videoDetails(ids:String) = httpToLiveData {
-        mRepo.details(ids)
     }
 }
