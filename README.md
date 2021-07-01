@@ -1,3 +1,2 @@
-# Gitee for Android
+# 一款仿微信的IM应用
 
-###  Android版本的Gitee

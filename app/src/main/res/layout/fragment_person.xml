@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:textSize="16sp"
+        android:layout_marginStart="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登陆" />
+
+    <EditText
+        android:id="@+id/et_account"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_width="match_parent"
+        android:textColor="@color/colorBlack"
+        android:layout_height="wrap_content"
+        android:hint="请输入账号" />
+
+    <EditText
+        android:id="@+id/et_pass_word"
+        android:layout_width="match_parent"
+        android:inputType="textPassword"
+        android:layout_marginStart="22dp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginEnd="22dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:hint="请输入密码" />
+
+    <TextView
+        android:text="登陆"
+        android:layout_marginStart="22dp"
+        android:id="@+id/tv_login"
+        android:gravity="center"
+        android:enabled="false"
+        android:layout_marginEnd="22dp"
+        android:background="@drawable/bg_btn_enable"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+</LinearLayout>
