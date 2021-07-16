@@ -29,27 +29,27 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>() {
         mViewBinding.etPassWord.addTextChangedListener {
             checkLoginBtnEnable()
         }
-        mViewBinding.tvLogin.singTapClick {
-            mViewModel.login(
-                mViewBinding.etAccount.text.toString(),
-                mViewBinding.etPassWord.text.toString()
-            )
-        }
+//        mViewBinding.tvLogin.singTapClick {
+//            mViewModel.login(
+//                mViewBinding.etAccount.text.toString(),
+//                mViewBinding.etPassWord.text.toString()
+//            )
+//        }
     }
 
 
     override fun liveDataListener() {
-        mViewModel.loginStatus.observe(viewLifecycleOwner, Observer {
-            showLoading()
-            it.jMessageParsing(
-                onLoading = { showLoading() },
-                onFinish = { hideLoading() },
-                onError = {
-                    context.showToast(it)
-                }) {
-                context.showToast("登陆成功")
-            }
-        })
+//        mViewModel.loginStatus.observe(viewLifecycleOwner, Observer {
+//            showLoading()
+//            it.jMessageParsing(
+//                onLoading = { showLoading() },
+//                onFinish = { hideLoading() },
+//                onError = {
+//                    context.showToast(it)
+//                }) {
+//                context.showToast("登陆成功")
+//            }
+//        })
     }
 
     /**

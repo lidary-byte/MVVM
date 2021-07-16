@@ -45,6 +45,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 onError = {
                     showToast(it)
                 }) {
+
                 finish()
             }
         })
@@ -62,7 +63,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        data?.let { data ->
+        data?.let { _ ->
             mViewModel.login(data.getStringExtra(ACCOUNT)!!, data.getStringExtra(PASSWORD)!!)
         }
     }
@@ -76,6 +77,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             statusBarColor(R.color.colorWhite)
         }
     }
+
     companion object {
         const val ACCOUNT = "account"
         const val PASSWORD = "pwd"

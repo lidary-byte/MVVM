@@ -9,27 +9,28 @@ import cn.ondu.chat.Config
  * @email：lidaryl@163.com
  * @description: 正常情况下的baseBean 部分接口不需要
  */
-sealed class JStatus(
+sealed class JStatus<T>(
     val status: Int? = null,
-    val message: String? = null
+    val message: String? = null,
+    val data: T? = null
 ) {
-    class LoadingStatus : JStatus()
-    class EndStatus(status: Int, message: String?) : JStatus(status, message)
+    class LoadingStatus<T> : JStatus<T>()
+    class EndStatus<T>(status: Int, message: String?= null, data: T? = null) : JStatus<T>(status, message, data)
 }
 
 
 /**
  * 极光返回数据相关解析
  */
-inline fun JStatus.jMessageParsing(
+inline fun <T> JStatus<T>.jMessageParsing(
     onLoading: () -> Unit = {}, onError: (message: String?) -> Unit = {}
-    , onFinish: () -> Unit = {}, onSuccess: () -> Unit
+    , onFinish: () -> Unit = {}, onSuccess: (t: T?) -> Unit
 ) {
     when (this) {
         is JStatus.LoadingStatus -> onLoading()
         is JStatus.EndStatus -> {
             if (status == Config.HTTP_SUCCESS_CODE) {
-                onSuccess()
+                onSuccess(data)
             } else {
                 onError(statusToMessage(status!!, message))
             }
