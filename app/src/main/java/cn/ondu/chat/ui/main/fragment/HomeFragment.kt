@@ -3,58 +3,48 @@ package cn.ondu.chat.ui.main.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import cn.ondu.basecommon.base.BaseFragment
-import cn.ondu.basecommon.base.BaseFragmentPagerAdapter
-import cn.ondu.chat.bean.AllTypeBean
 import cn.ondu.chat.databinding.FragmentHomeBinding
 import cn.ondu.chat.ui.main.MainViewModel
+import cn.ondu.chat.ui.main.adapter.HomeFragmentAdapter
+import com.blankj.utilcode.util.LogUtils
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val mViewModel by activityViewModels<MainViewModel>()
 
-    private val mTitleDataString by lazy { mutableListOf<String>() }
 
-    private val mFragments by lazy { mutableListOf<Fragment>() }
 
-    private var mTitleData: List<AllTypeBean>? = null
+    private val mChatListAdapter by lazy { HomeFragmentAdapter() }
 
-    private val viewPagerAdapter by lazy {
-        BaseFragmentPagerAdapter(
-            childFragmentManager, mFragments, mTitleDataString,
-            FragmentPagerAdapter.BEHAVIOR_SET_USER_VISIBLE_HINT
-        )
-    }
+
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
-        mViewBinding.viewPager.adapter = viewPagerAdapter
-        mViewBinding.tabLayout.setupWithViewPager(mViewBinding.viewPager)
+        mViewBinding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = mChatListAdapter
+        }
     }
 
 
     /**
-     * 获取tab数据
+     * 获取会话列表
      */
-    private fun loadAllType() {
-        mViewModel.allTypeList().observe(viewLifecycleOwner, Observer {
-            it.forEach {
-                mTitleDataString.add(it.title)
-                mFragments.add(HomeDetailsFragment.instance(it.type))
-            }
-            this.mTitleData = it
-            viewPagerAdapter.notifyDataSetChanged()
+    private fun conversationList() {
+        mViewModel.conversationList().observe(viewLifecycleOwner, Observer {
+            mChatListAdapter.setList(it)
+            LogUtils.json("消息列表:",it[0].latestMessage)
         })
     }
 
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        loadAllType()
+        conversationList()
     }
 
 

@@ -20,6 +20,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val mFragments by lazy {
         listOf(
             HomeFragment(),
+            PersonFragment(),
+            HomeFragment(),
             PersonFragment()
         )
     }

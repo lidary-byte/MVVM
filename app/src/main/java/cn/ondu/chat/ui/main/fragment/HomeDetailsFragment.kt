@@ -14,7 +14,7 @@ import cn.ondu.basecommon.showLoadingView
 import cn.ondu.chat.databinding.FragmentHomeDetailsBinding
 import cn.ondu.chat.ui.details.DetailsActivity
 import cn.ondu.chat.ui.main.MainViewModel
-import cn.ondu.chat.ui.main.adapter.HomeDetailsAdapter
+import cn.ondu.chat.ui.main.adapter.HomeFragmentAdapter
 
 class HomeDetailsFragment : BaseFragment<FragmentHomeDetailsBinding>() {
 
@@ -23,7 +23,7 @@ class HomeDetailsFragment : BaseFragment<FragmentHomeDetailsBinding>() {
     private var page = 1
     private val mViewModel by activityViewModels<MainViewModel>()
 
-    private val mAdapter by lazy { HomeDetailsAdapter() }
+    private val mAdapter by lazy { HomeFragmentAdapter() }
 
     /**
      * 根据type加载数据
