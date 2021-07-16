@@ -12,8 +12,8 @@ import cn.ondu.basecommon.showContentView
 import cn.ondu.basecommon.showErrorView
 import cn.ondu.basecommon.showLoadingView
 import cn.ondu.chat.databinding.FragmentHomeDetailsBinding
-import cn.ondu.chat.ui.details.DetailsActivity
-import cn.ondu.chat.ui.main.MainViewModel
+import cn.ondu.chat.ui.details.ChatDetailsActivity
+import cn.ondu.chat.ui.ChatViewModel
 import cn.ondu.chat.ui.main.adapter.HomeFragmentAdapter
 
 class HomeDetailsFragment : BaseFragment<FragmentHomeDetailsBinding>() {
@@ -21,7 +21,7 @@ class HomeDetailsFragment : BaseFragment<FragmentHomeDetailsBinding>() {
     private val mType by lazy { arguments?.getInt("type") ?: 1 }
 
     private var page = 1
-    private val mViewModel by activityViewModels<MainViewModel>()
+    private val mViewModel by activityViewModels<ChatViewModel>()
 
     private val mAdapter by lazy { HomeFragmentAdapter() }
 
@@ -42,7 +42,7 @@ class HomeDetailsFragment : BaseFragment<FragmentHomeDetailsBinding>() {
     override fun viewListener() {
         super.viewListener()
         mAdapter.setOnItemClickListener { adapter, view, position ->
-            DetailsActivity.start(requireContext(),mAdapter.data[position].id)
+            ChatDetailsActivity.start(requireContext(),mAdapter.data[position].id)
         }
     }
     override fun onLazyAfterView() {

@@ -6,11 +6,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import cn.jpush.im.android.api.JMessageClient
-import cn.jpush.im.android.api.model.UserInfo
 import cn.ondu.basecommon.base.BaseActivity
 import cn.ondu.basecommon.util.singTapClick
 import cn.ondu.chat.R
 import cn.ondu.chat.databinding.ActivityMainBinding
+import cn.ondu.chat.ui.ChatViewModel
 import cn.ondu.chat.ui.account.LoginActivity
 import cn.ondu.chat.ui.main.fragment.HomeFragment
 import cn.ondu.chat.ui.main.fragment.PersonFragment
@@ -44,7 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
 
-    private val mViewModel by viewModels<MainViewModel>()
+    private val mViewModel by viewModels<ChatViewModel>()
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
         val userInfo = JMessageClient.getMyInfo()

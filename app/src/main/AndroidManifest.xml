@@ -24,7 +24,7 @@
         <activity android:name=".ui.account.RegisterActivity"/>
 
 
-        <activity android:name="cn.ondu.chat.ui.details.DetailsActivity"
+        <activity android:name="cn.ondu.chat.ui.details.ChatDetailsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait"/>
 

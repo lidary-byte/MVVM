@@ -8,18 +8,17 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.ondu.basecommon.base.BaseFragment
 import cn.ondu.chat.databinding.FragmentHomeBinding
-import cn.ondu.chat.ui.main.MainViewModel
+import cn.ondu.chat.ui.ChatViewModel
+import cn.ondu.chat.ui.details.ChatDetailsActivity
 import cn.ondu.chat.ui.main.adapter.HomeFragmentAdapter
 import com.blankj.utilcode.util.LogUtils
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    private val mViewModel by activityViewModels<MainViewModel>()
-
+    private val mViewModel by activityViewModels<ChatViewModel>()
 
 
     private val mChatListAdapter by lazy { HomeFragmentAdapter() }
-
 
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -31,13 +30,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
 
+    override fun viewListener() {
+        mChatListAdapter.setOnItemClickListener { _, _, position ->
+            startConversation(mChatListAdapter.data[position].latestMessage.fromUser.userName)
+        }
+    }
+
+    /**
+     * 创建聊天会话
+     */
+    private fun startConversation(userName: String) {
+        ChatDetailsActivity.start(requireContext(),userName)
+    }
+
     /**
      * 获取会话列表
      */
     private fun conversationList() {
         mViewModel.conversationList().observe(viewLifecycleOwner, Observer {
             mChatListAdapter.setList(it)
-            LogUtils.json("消息列表:",it[0].latestMessage)
+            LogUtils.v("消息列表:", it.toString())
         })
     }
 
