@@ -2,14 +2,14 @@
 <resources>
     <color name="colorPrimary">#ededed</color>
     <color name="colorPrimaryDark">#6200EE</color>
-    <color name="colorAccent">#48C167</color>
+    <color name="colorAccent">#07C160</color>
 
     <color name="color_1396F1">#1396F1</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
 
     <color name="colorUncheck">#d9dbe5</color>
-    <color name="colorBtnEnable">#48C167</color>
+    <color name="colorBtnEnable">#07C160</color>
     <color name="colorBottomTabUnCheck">#9A9A9A</color>
     <color name="colorBtnUnEnable">#F2F2F2</color>
 
