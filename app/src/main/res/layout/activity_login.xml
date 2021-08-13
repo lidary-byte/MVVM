@@ -40,7 +40,7 @@
         android:textColor="@color/colorBlack"
         android:layout_height="wrap_content"/>
 
-    <cn.ondu.chat.widget.EnableButton
+    <cn.ondu.mvvm.widget.EnableButton
         android:text="登陆"
         android:layout_marginStart="22dp"
         android:id="@+id/tv_login"

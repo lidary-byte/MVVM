@@ -1,4 +1,4 @@
 include ':lib-res'
-rootProject.name='WeChat'
+rootProject.name='MVVM'
 include ':app'
 include ':lib-common'
