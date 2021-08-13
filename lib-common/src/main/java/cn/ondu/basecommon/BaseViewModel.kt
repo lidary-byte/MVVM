@@ -23,4 +23,5 @@ open class BaseViewModel : ViewModel() {
             emit(HttpStatus.FinishStatus())
         }
     }
+
 }
