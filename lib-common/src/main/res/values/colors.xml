@@ -5,8 +5,8 @@
     <color name="colorAccent">#07C160</color>
 
 <!--    <color name="color_1396F1">#1396F1</color>-->
-<!--    <color name="colorWhite">#ffffff</color>-->
-<!--    <color name="colorBlack">#000000</color>-->
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
 
 <!--    <color name="colorUncheck">#d9dbe5</color>-->
 <!--    <color name="colorBtnEnable">#07C160</color>-->

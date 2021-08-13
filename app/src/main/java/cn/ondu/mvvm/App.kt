@@ -1,7 +1,6 @@
 package cn.ondu.mvvm
 
 import android.content.Context
-import cn.jpush.im.android.api.JMessageClient
 import cn.ondu.basecommon.CommApp
 import cn.ondu.basecommon.LoadStatus
 import cn.ondu.basecommon.http.HttpClient
@@ -29,19 +28,10 @@ class App : CommApp() {
             errorTextId = R.id.tv_error
         }
         MMKV.initialize(this)
-        initJSdk()
         initHttp()
         initSmartRefreshLayout()
     }
 
-    /**
-     * 极光sdk初始化
-     */
-    private fun initJSdk(){
-        JMessageClient.setDebugMode(BuildConfig.DEBUG)
-        //第二个参数是开启漫游消息
-        JMessageClient.init(this,true)
-    }
 
     private fun initSmartRefreshLayout() {
         //设置全局默认配置（优先级最低，会被其他设置覆盖）

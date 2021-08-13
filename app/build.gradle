@@ -65,6 +65,4 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.7.0'
     implementation 'com.tencent:mmkv-static:1.2.9'
     implementation 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
-    implementation 'cn.jiguang.sdk:jmessage:2.9.2'  // 此处以JMessage 2.9.2 版本为例。
-    implementation 'cn.jiguang.sdk:jcore:2.3.0'  // 此处以JCore 2.3.0 版本为例。
 }

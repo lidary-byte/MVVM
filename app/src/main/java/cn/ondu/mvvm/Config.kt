@@ -9,6 +9,6 @@ package cn.ondu.mvvm
  */
 object Config {
     const val APP_DEBUG = true
-    const val HOST_URL = "https://mediachain.info/"
+    const val HOST_URL = "https://wanandroid.com/"
     const val HTTP_SUCCESS_CODE = 0
 }
