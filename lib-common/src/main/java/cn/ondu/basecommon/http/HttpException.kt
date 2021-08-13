@@ -57,7 +57,7 @@ object ExceptionHandle {
                     ex = HttpException(Error.TIMEOUT_ERROR,e)
                     return ex
                 }
-                is HttpException -> return it
+//                is retrofit2.HttpException -> return it
 
                 else -> {
                     ex = HttpException(Error.UNKNOWN,e)

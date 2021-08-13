@@ -5,13 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import cn.ondu.basecommon.http.ExceptionHandle
-import cn.ondu.basecommon.http.HttpException
-import cn.ondu.basecommon.http.IBaseBean
 import cn.ondu.basecommon.http.HttpStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 open class BaseViewModel : ViewModel() {
     /**
