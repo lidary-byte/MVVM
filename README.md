@@ -67,7 +67,8 @@ Repository中
 
 ```kotlin
 class MainRepo : BaseRepository() {
-    suspend fun articleList() = parsData { 			HttpClient.createApi(Api::class.java).articleList() }
+    suspend fun articleList() = parsData {
+    HttpClient.createApi(Api::class.java).articleList() }
 }
 ```
 
