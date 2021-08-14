@@ -30,7 +30,7 @@
     </cn.ondu.basecommon.view.StatusLayout>
 ```
 
-​	2.代码调用:
+2.代码调用:
 
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +61,17 @@ enum class LoadStatus(val showType: Int) {
 
 2.封装Retrofit+LiveData+协程用于网络请求
 
+BaseBean需要实现IBaseBean接口
+
+```kotlin
+data class BaseBean<T>(val errorCode: Int, val errorMsg: String, val data: T) : IBaseBean<T> {
+    override fun errorCode(): Int = errorCode
+    override fun errorMsg(): String = errorMsg
+    override fun data(): T = data
+    override fun isSuccess(): Boolean  = errorCode == Config.HTTP_SUCCESS_CODE
+}
+```
+
 ViewModel,Repository分别继承BaseViewModel和BaseRepository
 
 Repository中
@@ -76,7 +87,6 @@ ViewModel中
 
 ```kotlin
 class MainViewModel : BaseViewModel() {
-
     private val mRepo by lazy { MainRepo() }
     fun articleList() = httpToLiveData {  mRepo.articleList() }
 }
@@ -86,8 +96,7 @@ Activity中
 
 ```kotlin
 private val mViewModel by viewModels<MainViewModel>()
-
- private fun startHttp() {
+private fun startHttp() {
         mViewModel.articleList().observe(this, Observer {
             it.onStart {}
                 .onSuccess {}
@@ -100,9 +109,7 @@ private val mViewModel by viewModels<MainViewModel>()
 当然,你也可以
 
 ```kotlin
-private val mViewModel by viewModels<MainViewModel>()
-
- private fun startHttp() {
+private fun startHttp() {
         mViewModel.articleList().observe(this, Observer {
              when(it){
                  is HttpStatus.LoadingStatus ->{}
@@ -111,6 +118,65 @@ private val mViewModel by viewModels<MainViewModel>()
                  is HttpStatus.FinishStatus->{}
              }
         })
+    }
+```
+
+BaseRepository中仅对数据做脱壳处理
+
+```kotlin
+ suspend fun <T> parsData(
+        block: suspend () -> IBaseBean<T>
+    ): T {
+        val httpResult = withContext(Dispatchers.IO) {
+            block()
+        }
+        if (httpResult.isSuccess()) {
+            return httpResult.data()
+        } else {
+            throw HttpException(httpResult.errorCode(), httpResult.errorMsg())
+        }
+
+    }
+```
+
+可根据业务需求适当扩展Error枚举类
+
+```kotlin
+enum class Error(private val code: Int, private val err: String) {
+    UNKNOWN(1000, "请求失败，请稍后再试"),
+    PARSE_ERROR(1001, "Json解析错误，请稍后再试"),
+    NETWORK_ERROR(1002, "网络连接错误，请稍后重试"),
+    SSL_ERROR(1004, "证书出错，请稍后再试"),
+    TIMEOUT_ERROR(1006, "网络连接超时，请稍后重试");
+
+    fun getValue(): String {
+        return err
+    }
+
+    fun getKey(): Int {
+        return code
+    }
+
+}
+```
+
+BaseViewModel中进行具体的请求状态分发:
+
+```kotlin
+  protected fun <T> httpToLiveData(
+        block: suspend () -> T
+    ) = liveData<HttpStatus<T>>(Dispatchers.Main) {
+        emit(HttpStatus.LoadingStatus())
+        try {
+            //repository里已经将异常抛出 这里直接捕获就行
+            emit(HttpStatus.SuccessStatus(block()))
+        } catch (error: Exception) {
+            error.printStackTrace()
+            val handleException = ExceptionHandle.handleException(error)
+      emit(HttpStatus.ErrorStatus(handleException.errCode,handleException.errorMsg))
+        } finally {
+            emit(HttpStatus.FinishStatus())
+        }
     }
 ```
 
