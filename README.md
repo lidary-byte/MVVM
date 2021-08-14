@@ -103,7 +103,7 @@ private val mViewModel by viewModels<MainViewModel>()
 private fun startHttp() {
         mViewModel.articleList().observe(this, Observer {
             it.onStart {}
-                .onSuccess {}
+                .onSuccess {data->}
                 .onError { code, message -> }
                 .onFinish {}
         })
@@ -117,8 +117,8 @@ private fun startHttp() {
         mViewModel.articleList().observe(this, Observer {
              when(it){
                  is HttpStatus.LoadingStatus ->{}
-                 is HttpStatus.SuccessStatus->{}
-                 is HttpStatus.ErrorStatus->{}
+                 is HttpStatus.SuccessStatus->{data->}
+                 is HttpStatus.ErrorStatus->{code,message->}
                  is HttpStatus.FinishStatus->{}
              }
         })
