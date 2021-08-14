@@ -20,21 +20,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
 
     override fun initView(savedInstanceState: Bundle?) {
-        startHttp()
     }
 
 
     private fun startHttp() {
+
         mViewModel.articleList().observe(this, Observer {
             it.onStart {
                 LogUtils.e("=======================", "网络请求中...")
-//                showLoading()
                 mViewBinding.flContent.showLoadingView()
             }
                 .onSuccess {
                     LogUtils.e("=======================", "成功...${it?.size ?: 0}")
                     mViewBinding.tvContent.text = it?.datas?.get(0)?.toString() ?: ""
-                    mViewBinding.flContent.showEmptyView()
+                    mViewBinding.flContent.showContentView()
                 }
                 .onError {code, message ->
                     LogUtils.e("=======================", "网络请求失败...$message")
@@ -43,8 +42,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
                 .onFinish {
                     LogUtils.e("=======================", "网络请求结束")
-//                    mViewBinding.viewLoading.viewLoading.showViewHideOtherViews(mViewBinding.flContent)
-//                    hideLoading()
                 }
         })
     }

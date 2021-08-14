@@ -67,11 +67,8 @@ class StatusLayout : FrameLayout {
             LoadStatus.CONTENT.showType
         )
         obtainStyledAttributes.recycle()
-//        initView()
     }
 
-    private fun initView() {
-    }
 
 
     fun showLoadingView() {
@@ -100,28 +97,36 @@ class StatusLayout : FrameLayout {
                 viewContent?.visibility = View.GONE
                 viewEmpty?.visibility = View.GONE
                 viewError?.visibility = View.GONE
-                assert(viewLoading == null) { "Loading布局不能为空" }
+                if (viewLoading == null) {
+                    throw IllegalArgumentException("Loading布局不能为空")
+                }
                 viewLoading!!.visibility = View.VISIBLE
             }
             LoadStatus.CONTENT.showType -> {
                 viewLoading?.visibility = View.GONE
                 viewEmpty?.visibility = View.GONE
                 viewError?.visibility = View.GONE
-                assert(viewContent == null) { "Content布局不能为空" }
+                if (viewContent == null) {
+                    throw IllegalArgumentException("Content布局不能为空")
+                }
                 viewContent!!.visibility = View.VISIBLE
             }
             LoadStatus.ERROR.showType -> {
                 viewContent?.visibility = View.GONE
                 viewEmpty?.visibility = View.GONE
                 viewLoading?.visibility = View.GONE
-                assert(viewError == null) { "ERROR布局不能为空" }
+                if (viewError == null) {
+                    throw IllegalArgumentException("ERROR布局不能为空")
+                }
                 viewError!!.visibility = View.VISIBLE
             }
             LoadStatus.EMPTY.showType -> {
                 viewContent?.visibility = View.GONE
                 viewLoading?.visibility = View.GONE
                 viewError?.visibility = View.GONE
-                assert(viewEmpty == null) { "EMPTY布局不能为空" }
+                if (viewEmpty == null) {
+                    throw IllegalArgumentException("EMPTY布局不能为空")
+                }
                 viewEmpty!!.visibility = View.VISIBLE
             }
         }
@@ -151,7 +156,9 @@ class StatusLayout : FrameLayout {
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        assert(childCount != 1) { "StatusLayout初始化时有且只能有一个子布局" }
+        if (childCount != 1) {
+            throw IllegalArgumentException("StatusLayout初始化时有且只能有一个子布局")
+        }
         viewContent = getChildAt(0)
         createView()
         showViewStatus(defaultLoadStatus)
