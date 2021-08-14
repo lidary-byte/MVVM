@@ -18,7 +18,7 @@ open class BaseViewModel : ViewModel() {
         } catch (error: Exception) {
             error.printStackTrace()
             val handleException = ExceptionHandle.handleException(error)
-            emit(HttpStatus.ErrorStatus(handleException.errorMsg))
+            emit(HttpStatus.ErrorStatus(handleException.errCode,handleException.errorMsg))
         } finally {
             emit(HttpStatus.FinishStatus())
         }

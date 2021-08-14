@@ -10,12 +10,13 @@ package cn.ondu.basecommon.http
  */
 sealed class HttpStatus<T>(
     val data: T? = null,
-    val message: String? = null
+    val code:Int = -1,
+    val message: String = ""
 ) {
     class SuccessStatus<T>(data: T) : HttpStatus<T>(data)
     class LoadingStatus<T> : HttpStatus<T>()
     class FinishStatus<T> : HttpStatus<T>()
-    class ErrorStatus<T>(message: String) : HttpStatus<T>(message = message)
+    class ErrorStatus<T>(code:Int,message: String) : HttpStatus<T>(code = code,message = message)
 }
 
 /**
@@ -23,14 +24,14 @@ sealed class HttpStatus<T>(
  */
 inline fun <T> HttpStatus<T>.httpStatusParsing(
     onLoading: () -> Unit = {},
-    onError: (message: String?) -> Unit = {},
+    onError: (code:Int,message: String) -> Unit = {code,message->},
     onFinish: () -> Unit = {},
     onSuccess: (t: T?) -> Unit
 ) {
     when (this) {
         is HttpStatus.LoadingStatus -> onLoading()
         is HttpStatus.SuccessStatus -> onSuccess(this.data)
-        is HttpStatus.ErrorStatus -> onError(this.message)
+        is HttpStatus.ErrorStatus -> onError(this.code,this.message)
         is HttpStatus.FinishStatus -> onFinish()
     }
 }
@@ -51,9 +52,9 @@ inline fun <T> HttpStatus<T>.onSuccess(onSuccess: (data: T?) -> Unit): HttpStatu
 
 }
 
-inline fun <T> HttpStatus<T>.onError(onError: (message: String?) -> Unit): HttpStatus<T> {
+inline fun <T> HttpStatus<T>.onError(onError: (code:Int,message: String) -> Unit): HttpStatus<T> {
     if (this is HttpStatus.ErrorStatus) {
-        onError(this.message)
+        onError(this.code,this.message)
     }
     return this
 
