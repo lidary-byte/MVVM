@@ -2,7 +2,6 @@ package cn.ondu.mvvm
 
 import android.content.Context
 import cn.ondu.basecommon.CommApp
-import cn.ondu.basecommon.LoadStatus
 import cn.ondu.basecommon.http.HttpClient
 import cn.ondu.basecommon.http.RetrofitInterface
 import cn.ondu.basecommon.util.easyColor
@@ -21,12 +20,6 @@ class App : CommApp() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        LoadStatus.apply {
-            loadingViewId = R.id.view_loading
-            emptyViewId = R.id.view_empty
-            errorViewId = R.id.view_error
-            errorTextId = R.id.tv_error
-        }
         MMKV.initialize(this)
         initHttp()
         initSmartRefreshLayout()

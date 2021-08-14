@@ -1,41 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <LinearLayout
+
+    <cn.ondu.basecommon.view.StatusLayout
+        android:id="@+id/fl_content"
+        app:view_loading="@layout/view_loading"
+        app:view_empty="@layout/view_empty"
+        app:view_error="@layout/view_error"
+        app:load_default="loading"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:background="@color/colorBtnEnable"
-            android:gravity="center"
-            android:id="@+id/tv_start"
-            android:text="开始网络请求"
-            android:textColor="@color/colorWhite" />
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/ll_content"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="20dp"
-            android:background="@color/colorBtnEnable"
-            android:gravity="center"
-            android:id="@+id/tv_stop"
-            android:text="结束网络请求"
-            android:textColor="@color/colorWhite" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@color/colorBtnEnable"
-            android:hint="网络请求内容..."
-            android:padding="8dp"
-            android:textColor="@color/colorWhite" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/tv_start"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:background="@color/colorBtnEnable"
+                android:gravity="center"
+                android:text="开始网络请求"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/tv_stop"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:background="@color/colorBtnEnable"
+                android:gravity="center"
+                android:text="结束网络请求"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@color/colorBtnEnable"
+                android:hint="网络请求内容..."
+                android:padding="8dp"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+    </cn.ondu.basecommon.view.StatusLayout>
+</LinearLayout>

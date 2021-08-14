@@ -1,78 +1,24 @@
 package cn.ondu.basecommon
 
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.forEach
 import cn.ondu.basecommon.util.easyString
 
 
-object LoadStatus {
-    var emptyViewId: Int? = null
-    var errorViewId: Int? = null
-    var errorTextId: Int? = null
-    var loadingViewId: Int? = null
-}
-
 /**
- * 这几个方法是ContentView 的扩展方法
- * 因为加载失败,加载数据为空的viewId基本可以写死一个
- * 但是ContentViewId不一定(其实也可以写死 但是不太好)
+ * View的切换(加载中布局,加载成功,加载失败...)
+ * 调用该方法的对象为想要显示的View
+ * @param parentView  ViewGroup通过外部传进来
+ * 如果通过this.rootView as ViewGroup获取 菜单栏也会被隐藏
  */
-fun View.showContentView() {
-    val rootView = this.rootView
-    LoadStatus.loadingViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.GONE
+fun View.showViewHideOtherViews(parentView:ViewGroup) {
+    parentView.forEach {
+        if (it==this){
+            this.visibility = View.VISIBLE
+        }else{
+            this.visibility = View.GONE
+        }
     }
-    LoadStatus.emptyViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    LoadStatus.errorViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    this.visibility = View.VISIBLE
-}
-
-fun View.showLoadingView() {
-    val rootView = this.rootView
-    LoadStatus.loadingViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.VISIBLE
-    }
-    LoadStatus.emptyViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    LoadStatus.errorViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    this.visibility = View.GONE
-}
-
-fun View.showEmptyView() {
-    val rootView = this.rootView
-    LoadStatus.loadingViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    LoadStatus.emptyViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.VISIBLE
-    }
-    LoadStatus.errorViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    this.visibility = View.GONE
-
-}
-
-fun View.showErrorView(errorText: String? = this.context.easyString(R.string.load_error)) {
-    val rootView = this.rootView
-    LoadStatus.loadingViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    LoadStatus.emptyViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.GONE
-    }
-    LoadStatus.errorViewId?.let {
-        rootView.findViewById<View>(it).visibility = View.VISIBLE
-    }
-
-    LoadStatus.errorTextId?.let { this.rootView.findViewById<TextView>(it).text = errorText }
-
-    this.visibility = View.GONE
 }
