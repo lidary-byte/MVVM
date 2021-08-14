@@ -2,7 +2,11 @@
 
 改框架便于快速搭建MVVM应用
 
-
+- [x] 基于Retrofit+LiveData+协程的网络请求
+- [x] 封装view布局状态切换
+- [x] 带有ViewBinding的BaseActivity和BaseFragment
+- [x] 带有懒加载的BaseFragment
+- [ ] 基于Flow的Bus框架(类似EventBus)
 
 ## 封装StatusLayout用于布局状态切换
 
@@ -59,7 +63,7 @@ enum class LoadStatus(val showType: Int) {
 
 
 
-## 封装Retrofit+LiveData+协程用于网络请求
+##  封装Retrofit+LiveData+协程用于网络请求
 
 BaseBean需要实现IBaseBean接口
 
@@ -183,5 +187,7 @@ BaseViewModel中进行具体的请求状态分发:
 
 
 3.封装BaseActivity,BaseFragment等基类(具体查看源码)
+
+<font color=red>注:如果要在ViewPager里使用BaseFragment懒加载时FragmentPagerAdapter的behavior参数要传入BEHAVIOR_SET_USER_VISIBLE_HINT</font>
 
 4.封装常用util工具(具体查看源码)
