@@ -1,6 +1,7 @@
 package cn.ondu.mvvm.bean
 
 import cn.ondu.basecommon.http.IBaseBean
+import cn.ondu.mvvm.Config
 
 /**
  * @author: lcc
@@ -14,5 +15,6 @@ data class BaseBean<T>(val errorCode: Int, val errorMsg: String, val data: T) : 
     override fun errorCode(): Int = errorCode
     override fun errorMsg(): String = errorMsg
     override fun data(): T = data
+    override fun isSuccess(): Boolean  = errorCode == Config.HTTP_SUCCESS_CODE
 }
 
