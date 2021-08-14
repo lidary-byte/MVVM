@@ -11,9 +11,10 @@
         app:view_loading="@layout/view_loading"
         app:view_empty="@layout/view_empty"
         app:view_error="@layout/view_error"
-        app:load_default="content"
+        app:load_default="loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
 
         <LinearLayout
