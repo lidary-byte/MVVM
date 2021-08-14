@@ -1,6 +1,6 @@
 # MVVM框架
 
-改框架便于快速搭建MVVM应用
+该框架便于快速搭建MVVM应用
 
 - [x] 基于Retrofit+LiveData+协程的网络请求
 - [x] 封装view布局状态切换
