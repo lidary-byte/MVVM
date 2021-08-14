@@ -59,7 +59,7 @@ enum class LoadStatus(val showType: Int) {
 
 
 
-2.封装Retrofit+LiveData+协程用于网络请求
+## 封装Retrofit+LiveData+协程用于网络请求
 
 BaseBean需要实现IBaseBean接口
 
