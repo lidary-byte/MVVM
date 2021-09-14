@@ -6,6 +6,7 @@
 - [x] 封装view布局状态切换
 - [x] 带有ViewBinding的BaseActivity和BaseFragment
 - [x] 带有懒加载的BaseFragment
+
 ~~[ ] 基于Flow的Bus框架(类似EventBus)~~
 
 ## 封装StatusLayout用于布局状态切换
