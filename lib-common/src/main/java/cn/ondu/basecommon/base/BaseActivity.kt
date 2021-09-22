@@ -11,7 +11,7 @@ import cn.ondu.basecommon.CommApp
 import cn.ondu.basecommon.R
 import cn.ondu.basecommon.util.CommSharedViewModel
 import cn.ondu.basecommon.view.LoadingDialog
-import com.gyf.immersionbar.ktx.immersionBar
+import com.gyf.immersionbar.ImmersionBar
 
 
 abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
@@ -19,11 +19,12 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
     protected val mLogTag = this::class.java.simpleName
 
-    protected lateinit var mViewBinding: T
-    private val loadingDialog by lazy { LoadingDialog(this) }
+    private var _viewBinding: T? = null
+    protected val mViewBinding by lazy(LazyThreadSafetyMode.NONE) { _viewBinding!! }
+    private val loadingDialog by lazy(LazyThreadSafetyMode.NONE) { LoadingDialog(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewBinding = viewBinding()
+        _viewBinding = viewBinding()
         setContentView(mViewBinding.root)
         initImmersionBar()
         initData(savedInstanceState)
@@ -33,13 +34,11 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     }
 
     protected open fun initImmersionBar() {
-        immersionBar {
-            //自动状态栏
-            autoDarkModeEnable(true)
-            fitsSystemWindows(true)
-            keyboardEnable(true)  //解决软键盘与底部输入框冲突问题
-            statusBarColor(R.color.colorPrimary)
-        }
+        ImmersionBar.with(this)
+            .autoDarkModeEnable(true)
+            .fitsSystemWindows(true)
+            .keyboardEnable(true)
+            .statusBarColor(R.color.colorPrimary)
     }
 
     /**
@@ -61,9 +60,9 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
      *
      */
 
-    protected inline fun <reified SVM:CommSharedViewModel> applicationViewModel(activity: Activity): Lazy<SVM> {
+    protected inline fun <reified SVM : CommSharedViewModel> applicationViewModel(activity: Activity): Lazy<SVM> {
         return ViewModelLazy(SVM::class,
-            { (activity.applicationContext as CommApp).viewModelStore},
+            { (activity.applicationContext as CommApp).viewModelStore },
             { ViewModelProvider.AndroidViewModelFactory.getInstance(activity.application as CommApp) })
     }
 
@@ -90,6 +89,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
                         + "Application. You can't request ViewModel before onCreate call."
             )
     }
+
     protected fun showLoading(text: String = "加载中,请稍等...") {
         loadingDialog.show(text)
     }
@@ -99,7 +99,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        if (loadingDialog.isShowing){
+        if (loadingDialog.isShowing) {
             loadingDialog.dismiss()
         }
         super.onDestroy()

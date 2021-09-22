@@ -19,9 +19,9 @@ import com.gyf.immersionbar.components.ImmersionProxy
 abstract class BaseFragment<T : ViewBinding> : Fragment(), ImmersionOwner {
 
     private var _viewBinding: T? = null
-    protected val mViewBinding by lazy { _viewBinding!! }
+    protected val mViewBinding by lazy(LazyThreadSafetyMode.NONE) { _viewBinding!! }
 
-    private val loadingDialog by lazy { LoadingDialog(requireContext()) }
+    private val loadingDialog by lazy(LazyThreadSafetyMode.NONE) { LoadingDialog(requireContext()) }
 
     /**
      * ImmersionBar代理类
