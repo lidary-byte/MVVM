@@ -1,4 +1,0 @@
-include ':lib-res'
-rootProject.name='MVVM'
-include ':app'
-include ':lib-common'
