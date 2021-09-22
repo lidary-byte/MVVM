@@ -22,12 +22,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun startHttp() {
         mViewModel.articleList().observe(this, Observer {
-            it.onStart {}
-                .onSuccess {}
-                .onError { code, message -> }
-                .onFinish {}
+            it.onStart { LogUtils.e("======onStart")}
+                .onSuccess { data-> mViewBinding.tvContent.text = data?.toString()?:"" }
+                .onError { code, message ->  LogUtils.e("======onError:$code----$message")}
+                .onFinish { LogUtils.e("======onFinish")}
         })
     }
+
+
 
     override fun viewListener() {
         mViewBinding.tvStart.singTapClick { startHttp() }

@@ -7,7 +7,7 @@ import org.json.JSONException
 import java.net.ConnectException
 import java.text.ParseException
 
-class HttpException : Exception{
+class HttpException : Exception {
 
     var errorMsg: String //错误消息
     var errCode: Int = 0 //错误码
@@ -17,7 +17,7 @@ class HttpException : Exception{
         this.errCode = errCode
     }
 
-    constructor(error: Error,e: Throwable?) {
+    constructor(error: Error, e: Throwable?) {
         errCode = error.getKey()
         errorMsg = error.getValue()
     }
@@ -25,48 +25,16 @@ class HttpException : Exception{
 
 object ExceptionHandle {
 
-    fun handleException(e: Throwable?): HttpException {
-        val ex: HttpException
-        e?.let {
-            when (it) {
-                is HttpException -> {
-                    ex = HttpException(Error.NETWORK_ERROR,e)
-                    return ex
-                }
-                 is JSONException,is JsonDataException, is ParseException ,is MalformedJsonException -> {
-                    ex = HttpException(Error.PARSE_ERROR,e)
-                    return ex
-                }
-                is ConnectException -> {
-                    ex = HttpException(Error.NETWORK_ERROR,e)
-                    return ex
-                }
-                is javax.net.ssl.SSLException -> {
-                    ex = HttpException(Error.SSL_ERROR,e)
-                    return ex
-                }
-                is ConnectTimeoutException -> {
-                    ex = HttpException(Error.TIMEOUT_ERROR,e)
-                    return ex
-                }
-                is java.net.SocketTimeoutException -> {
-                    ex = HttpException(Error.TIMEOUT_ERROR,e)
-                    return ex
-                }
-                is java.net.UnknownHostException -> {
-                    ex = HttpException(Error.TIMEOUT_ERROR,e)
-                    return ex
-                }
-//                is retrofit2.HttpException -> return it
-
-                else -> {
-                    ex = HttpException(Error.UNKNOWN,e)
-                    return ex
-                }
-            }
-        }
-        ex = HttpException(Error.UNKNOWN,e)
-        return ex
+    fun handleException(e: Throwable): HttpException = when (e) {
+        is retrofit2.HttpException -> HttpException(Error.NETWORK_ERROR, e)
+        is JSONException, is JsonDataException, is ParseException, is MalformedJsonException -> HttpException(Error.PARSE_ERROR, e)
+        is ConnectException -> HttpException(Error.NETWORK_ERROR, e)
+        is javax.net.ssl.SSLException -> HttpException(Error.SSL_ERROR, e)
+        is ConnectTimeoutException -> HttpException(Error.TIMEOUT_ERROR, e)
+        is java.net.SocketTimeoutException -> HttpException(Error.TIMEOUT_ERROR, e)
+        is java.net.UnknownHostException -> HttpException(Error.TIMEOUT_ERROR, e)
+        is HttpException -> e
+        else -> HttpException(Error.UNKNOWN, e)
     }
 }
 
@@ -79,10 +47,12 @@ enum class Error(private val code: Int, private val err: String) {
      * 未知错误
      */
     UNKNOWN(1000, "请求失败，请稍后再试"),
+
     /**
      * 解析错误
      */
     PARSE_ERROR(1001, "Json解析错误，请稍后再试"),
+
     /**
      * 网络错误
      */
