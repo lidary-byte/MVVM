@@ -3,13 +3,13 @@ package cn.ondu.mvvm.main
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import cn.ondu.basecommon.base.BaseActivity
 import cn.ondu.basecommon.http.*
-import cn.ondu.basecommon.showViewHideOtherViews
-import cn.ondu.basecommon.util.showToast
 import cn.ondu.basecommon.util.singTapClick
 import cn.ondu.mvvm.databinding.ActivityMainBinding
 import com.blankj.utilcode.util.LogUtils
+import kotlinx.coroutines.flow.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -22,17 +22,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun startHttp() {
         mViewModel.articleList().observe(this, Observer {
-            it.onStart { LogUtils.e("======onStart")}
-                .onSuccess { data-> mViewBinding.tvContent.text = data?.toString()?:"" }
-                .onError { code, message ->  LogUtils.e("======onError:$code----$message")}
-                .onFinish { LogUtils.e("======onFinish")}
+            it.onHttpStart { LogUtils.e("======onStart") }
+                .onHttpSuccess { data -> mViewBinding.tvContent.text = data?.toString() ?: "" }
+                .onHttpError { code, message -> LogUtils.e("======onError:$code----$message") }
+                .onHttpFinish { LogUtils.e("======onFinish") }
         })
     }
 
+    private fun startHttpToFlow() {
+        lifecycleScope.launchWhenStarted {
+            mViewModel.articleListFlow().onHttpStart { LogUtils.e("======onStart") }
+                .onHttpSuccess { data -> mViewBinding.tvContent.text = data?.toString() ?: "" }
+                .onHttpError { code, message -> LogUtils.e("======onError:$code----$message") }
+                .onHttpFinish { LogUtils.e("======onFinish") }
+            }
+        }
 
 
     override fun viewListener() {
-        mViewBinding.tvStart.singTapClick { startHttp() }
+        mViewBinding.tvStart.singTapClick { startHttpToFlow() }
 //        mViewBinding.tvStartLoading.singTapClick{
 //            mViewBinding.tvStartLoading
 //        }

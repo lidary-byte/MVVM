@@ -2,8 +2,11 @@ package cn.ondu.basecommon
 
 import androidx.lifecycle.*
 import cn.ondu.basecommon.http.ExceptionHandle
+import cn.ondu.basecommon.http.HttpException
 import cn.ondu.basecommon.http.HttpStatus
+import com.blankj.utilcode.util.LogUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 open class BaseViewModel : ViewModel() {
@@ -45,4 +48,14 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
+    protected fun <T> Flow<HttpStatus<T>>.httpToFlow() = this.onStart {
+        emit(HttpStatus.LoadingStatus())
+    }.onCompletion {
+        emit(HttpStatus.FinishStatus())
+    }.flowOn(Dispatchers.Main)
+        .catch { throwable ->
+            throwable.printStackTrace()
+            val handleException = ExceptionHandle.handleException(throwable)
+            emit(HttpStatus.ErrorStatus(handleException.errCode, handleException.errorMsg))
+        }
 }
