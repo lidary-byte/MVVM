@@ -17,17 +17,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
 
     override fun initView(savedInstanceState: Bundle?) {
+
     }
 
-
-    private fun startHttp() {
-        mViewModel.articleList().observe(this, Observer {
-            it.onHttpStart { LogUtils.e("======onStart") }
-                .onHttpSuccess { data -> mViewBinding.tvContent.text = data?.toString() ?: "" }
-                .onHttpError { code, message -> LogUtils.e("======onError:$code----$message") }
-                .onHttpFinish { LogUtils.e("======onFinish") }
-        })
-    }
 
     private fun startHttpToFlow() {
         lifecycleScope.launchWhenStarted {
@@ -35,17 +27,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 .onHttpSuccess { data -> mViewBinding.tvContent.text = data?.toString() ?: "" }
                 .onHttpError { code, message -> LogUtils.e("======onError:$code----$message") }
                 .onHttpFinish { LogUtils.e("======onFinish") }
-            }
         }
+    }
 
 
     override fun viewListener() {
-        mViewBinding.tvStart.singTapClick { startHttpToFlow() }
+        mViewBinding.tvStart.singTapClick { mViewModel.articleList() }
 //        mViewBinding.tvStartLoading.singTapClick{
 //            mViewBinding.tvStartLoading
 //        }
     }
 
+    override fun liveDataListener() {
+        mViewModel.articleLiveData.observeStatus(this) {
+            onStart { LogUtils.e("======onStart") }
+            onSuccess { mViewBinding.tvContent.text = it.datas.toString() }
+            onError { code, message -> mViewBinding.tvContent.text = message }
+            onFinish { LogUtils.e("======onFinish") }
+        }
+    }
 
     override fun viewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 }
